@@ -1,29 +1,30 @@
 {
   "area": "大津市",
-  "source": {
-    "publisher": "大津市",
-    "dataset": "公共施設一覧",
-    "data_as_of": "2021-04-01",
-    "source_page": "大津市オープンデータ「公共施設一覧」",
-    "license": "Creative Commons Attribution",
-    "radar_added": "2026-08-16"
-  },
-  "records": [
+  "updated": "2026-08-16",
+  "datasets": [
     {
-      "name": "比叡ふれあいセンター",
-      "category": "公共施設",
-      "address": "滋賀県大津市坂本六丁目33-19",
-      "latitude": 35.076086,
-      "longitude": 135.872546,
-      "information_type": "施設情報"
+      "id": "food-business",
+      "title": "食品営業許可施設一覧",
+      "category": "店舗・事業所",
+      "data_as_of": "2026年5月末時点",
+      "published": "2026-06-17",
+      "publisher": "大津市",
+      "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
+      "detail_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
+      "license": "大津市オープンデータ利用規約に従う",
+      "records": []
     },
     {
-      "name": "坂本児童館",
-      "category": "公共施設",
-      "address": "滋賀県大津市坂本六丁目33-19",
-      "latitude": 35.076086,
-      "longitude": 135.872546,
-      "information_type": "施設情報"
+      "id": "barber",
+      "title": "理容所一覧",
+      "category": "店舗・事業所",
+      "data_as_of": "2026年5月末現在",
+      "published": "2026-06-16",
+      "publisher": "大津市",
+      "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/1464914587129.html",
+      "detail_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/1464914587129.html",
+      "license": "大津市オープンデータ利用規約に従う",
+      "records": []
     }
   ]
 }
