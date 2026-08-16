@@ -1,29 +1,22 @@
 {
   "area": "大津市",
-  "updated": "2026-08-16",
+  "updated": "2026-08-17",
   "datasets": [
     {
-      "id": "food-business",
+      "id": "otsu-food-business",
       "title": "食品営業許可施設一覧",
-      "category": "店舗・事業所",
+      "category": "施設・店舗",
+      "prefecture": "滋賀県",
+      "city": "大津市",
       "data_as_of": "2026年5月末時点",
       "published": "2026-06-17",
       "publisher": "大津市",
+      "format": "CSV",
+      "file_size": "828.8KB",
       "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
-      "detail_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
+      "file_url": "",
       "license": "大津市オープンデータ利用規約に従う",
-      "records": []
-    },
-    {
-      "id": "barber",
-      "title": "理容所一覧",
-      "category": "店舗・事業所",
-      "data_as_of": "2026年5月末現在",
-      "published": "2026-06-16",
-      "publisher": "大津市",
-      "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/1464914587129.html",
-      "detail_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/1464914587129.html",
-      "license": "大津市オープンデータ利用規約に従う",
+      "description": "大津市が公開する食品営業許可施設の一覧です。",
       "records": []
     }
   ]
