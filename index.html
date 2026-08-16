@@ -1,50 +1,158 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OPEN RADAR 試作1号</title>
+<title>OPEN RADAR</title>
 <style>
-body{font-family:system-ui,sans-serif;margin:0;background:#f5f7fa;color:#17202a}
-header{background:#111827;color:white;padding:22px 16px}
-main{max-width:760px;margin:auto;padding:16px}
-input,select{width:100%;padding:13px;margin:6px 0 14px;border:1px solid #d1d5db;border-radius:10px;box-sizing:border-box;background:white}
-.card{background:white;border:1px solid #e5e7eb;border-radius:14px;padding:16px;margin:12px 0}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;font-size:12px;margin-right:5px}
-a{display:inline-block;margin-top:12px;text-decoration:none;font-weight:700}
-.small{font-size:13px;color:#667085}
+body{font-family:system-ui,sans-serif;margin:0;background:#f5f6f8;color:#222}
+header{background:#111;color:#fff;padding:22px 16px}
+header h1{margin:0;font-size:28px}
+header p{margin:6px 0 0;color:#ccc}
+main{max-width:900px;margin:auto;padding:18px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px #0001}
+input,select{width:100%;box-sizing:border-box;padding:13px;margin:6px 0 14px;border:1px solid #ccc;border-radius:9px;font-size:16px}
+.badge{display:inline-block;background:#eee;padding:5px 9px;border-radius:20px;font-size:13px;margin:3px}
+.small{font-size:13px;color:#666}
+a{color:#0758a8}
+#status{font-weight:bold}
 </style>
 </head>
+
 <body>
-<header><strong>OPEN RADAR</strong><div>全国の公開情報から営業機会を探す</div></header>
+
+<header>
+<h1>OPEN RADAR</h1>
+<p>公開情報を整理して、見つけやすくする。</p>
+</header>
+
 <main>
-<h2>新着案件（試作）</h2>
-<input id="q" placeholder="案件名・地域・用途で検索">
-<select id="type"><option value="">すべての用途</option></select>
-<div id="list"></div>
-<p class="small">※試作版。情報は大阪市の公開ページを元にしたサンプルです。必ず原資料をご確認ください。</p>
+
+<div class="card">
+<h2>大津市</h2>
+<p>公開情報から確認できる施設情報</p>
+
+<input id="search" placeholder="施設名・住所で検索">
+
+<select id="category">
+<option value="">すべての区分</option>
+</select>
+
+<p id="status">データを読み込んでいます…</p>
+</div>
+
+<div id="results"></div>
+
+<div class="card">
+<h3>情報について</h3>
+<p class="small">
+このページは、国・自治体等が公開している情報を、利用条件を確認したうえで整理・表示するものです。
+OPEN RADARが営業先、必要なサービス、将来の需要等を判断・推奨するものではありません。
+利用者による判断・利用については、各公開元の情報をご確認ください。
+</p>
+<p class="small">
+出典・データ時点・取得日等は各データに表示します。
+</p>
+</div>
+
 </main>
+
 <script>
-const data = [
-["（仮称）エスリード浪速区浪速西3丁目新築工事","共同住宅","大阪市浪速区"],
-["（仮称）浪速区元町一丁目計画 新築工事","ホテル","大阪市浪速区"],
-["恩加島事業センター2,3F 棟","工場","大阪市大正区"],
-["（仮称）大阪成蹊大学駅前キャンパスII期（West館）新築工事","大学","大阪市東淀川区"],
-["（仮称）松源浪速店新築工事","物販店舗","大阪市浪速区"],
-["興國高等学校 南館増築工事","高等学校","大阪市天王寺区"],
-["（仮称）平野複合開発（物流）新築工事","倉庫業を営む倉庫","大阪市平野区"],
-["医療法人高遼会 高遼会病院 新築工事","病院","大阪市東住吉区"],
-["（仮称）大阪鶴橋ホテル新築工事","ホテル又は旅館","大阪市生野区"],
-["大阪市立九条南小学校","小学校","大阪市西区"]
-];
-const list=document.getElementById("list"), q=document.getElementById("q"), type=document.getElementById("type");
-[...new Set(data.map(x=>x[1]))].sort().forEach(x=>type.add(new Option(x,x)));
-function render(){
- const s=q.value.toLowerCase(), t=type.value;
- list.innerHTML=data.filter(x=>(!s||x.join(" ").toLowerCase().includes(s))&&(!t||x[1]===t))
- .map(x=>`<article class="card"><h3>${x[0]}</h3><span class="badge">${x[1]}</span><span class="badge">${x[2]}</span><div class="small">公開元：大阪市　令和8年度</div><a href="https://www.city.osaka.lg.jp/toshikeikaku/page/0000678347.html" target="_blank" rel="noopener">原資料・公開元を見る →</a></article>`).join("") || "<p>該当する案件はありません。</p>";
+let data=[];
+
+async function loadData(){
+  try{
+    const res=await fetch("otsu-data.json");
+    if(!res.ok) throw new Error("data error");
+    const json=await res.json();
+
+    data=json.records || [];
+
+    const categories=[...new Set(data.map(x=>x.category).filter(Boolean))];
+    const select=document.getElementById("category");
+
+    categories.forEach(c=>{
+      const option=document.createElement("option");
+      option.value=c;
+      option.textContent=c;
+      select.appendChild(option);
+    });
+
+    document.getElementById("status").textContent=
+      data.length+"件の公開情報を表示";
+
+    render();
+  }catch(e){
+    document.getElementById("status").textContent=
+      "データを読み込めませんでした";
+  }
 }
-q.oninput=render; type.onchange=render; render();
+
+function render(){
+  const keyword=document.getElementById("search").value.toLowerCase();
+  const category=document.getElementById("category").value;
+
+  const filtered=data.filter(x=>{
+    const text=(x.name+" "+x.address).toLowerCase();
+    return (!keyword || text.includes(keyword))
+      && (!category || x.category===category);
+  });
+
+  const box=document.getElementById("results");
+  box.innerHTML="";
+
+  filtered.forEach(x=>{
+    const card=document.createElement("div");
+    card.className="card";
+
+    card.innerHTML=`
+      <h2>${x.name || ""}</h2>
+      <span class="badge">${x.category || "施設情報"}</span>
+      <p>${x.address || ""}</p>
+      <p class="small">
+        情報区分：${x.information_type || "公開情報"}<br>
+        公開元：${dataSource("publisher")}<br>
+        データ時点：${dataSource("data_as_of")}<br>
+        OPEN RADAR取得日：${dataSource("radar_added")}
+      </p>
+    `;
+
+    box.appendChild(card);
+  });
+
+  if(filtered.length===0){
+    box.innerHTML='<div class="card">該当する情報はありません。</div>';
+  }
+}
+
+function dataSource(key){
+  return window.otsuSource ? window.otsuSource[key] || "" : "";
+}
+
+document.getElementById("search").addEventListener("input",render);
+document.getElementById("category").addEventListener("change",render);
+
+fetch("otsu-data.json")
+.then(r=>r.json())
+.then(j=>{
+  window.otsuSource=j.source || {};
+  data=j.records || [];
+
+  const select=document.getElementById("category");
+  [...new Set(data.map(x=>x.category).filter(Boolean))].forEach(c=>{
+    const o=document.createElement("option");
+    o.value=c;
+    o.textContent=c;
+    select.appendChild(o);
+  });
+
+  document.getElementById("status").textContent=data.length+"件の公開情報を表示";
+  render();
+})
+.catch(()=>{
+  document.getElementById("status").textContent="データを読み込めませんでした";
+});
 </script>
+
 </body>
 </html>
