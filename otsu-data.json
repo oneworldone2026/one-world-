@@ -1,0 +1,29 @@
+{
+  "area": "大津市",
+  "source": {
+    "publisher": "大津市",
+    "dataset": "公共施設一覧",
+    "data_as_of": "2021-04-01",
+    "source_page": "大津市オープンデータ「公共施設一覧」",
+    "license": "Creative Commons Attribution",
+    "radar_added": "2026-08-16"
+  },
+  "records": [
+    {
+      "name": "比叡ふれあいセンター",
+      "category": "公共施設",
+      "address": "滋賀県大津市坂本六丁目33-19",
+      "latitude": 35.076086,
+      "longitude": 135.872546,
+      "information_type": "施設情報"
+    },
+    {
+      "name": "坂本児童館",
+      "category": "公共施設",
+      "address": "滋賀県大津市坂本六丁目33-19",
+      "latitude": 35.076086,
+      "longitude": 135.872546,
+      "information_type": "施設情報"
+    }
+  ]
+}
