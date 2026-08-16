@@ -3,408 +3,278 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OPEN RADAR</title>
-
+<title>OPEN RADAR｜公開情報検索</title>
 <style>
 *{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f4f6f8;
-  color:#222;
-}
-header{
-  background:#111;
-  color:white;
-  padding:24px 18px;
-}
+body{margin:0;font-family:system-ui,sans-serif;background:#f4f6f8;color:#222}
+header{background:#111;color:#fff;padding:24px 18px}
 header h1{margin:0;font-size:30px}
-header p{margin:7px 0 0;color:#ccc}
-
-main{
-  max-width:900px;
-  margin:auto;
-  padding:18px;
-}
-
-.card{
-  background:white;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:15px;
-  box-shadow:0 2px 8px #00000012;
-}
-
-input,select{
-  width:100%;
-  padding:13px;
-  margin:6px 0 12px;
-  border:1px solid #ccc;
-  border-radius:9px;
-  font-size:16px;
-}
-
-.dataset{
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:16px;
-  margin-top:12px;
-}
-
-.dataset h2{
-  margin:0 0 8px;
-  font-size:19px;
-}
-
-.badge{
-  display:inline-block;
-  background:#eee;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-button,a.button{
-  display:inline-block;
-  padding:10px 14px;
-  border-radius:8px;
-  border:0;
-  background:#222;
-  color:white;
-  text-decoration:none;
-  margin-top:8px;
-  cursor:pointer;
-}
-
-.detail{
-  display:none;
-}
-
-.small{
-  font-size:13px;
-  color:#666;
-  line-height:1.7;
-}
-
-.source{
-  border-top:1px solid #ddd;
-  margin-top:14px;
-  padding-top:12px;
-}
+header p{margin:8px 0 0;color:#ccc}
+main{max-width:900px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px #0001}
+h2{margin-top:0}
+input,select{width:100%;padding:13px;margin:6px 0 12px;border:1px solid #ccc;border-radius:9px;font-size:16px}
+button,.link{display:inline-block;border:0;border-radius:9px;padding:11px 15px;background:#222;color:#fff;text-decoration:none;margin:4px 4px 4px 0;font-size:15px}
+.badge{display:inline-block;background:#eee;padding:5px 9px;border-radius:20px;font-size:13px}
+.small{font-size:13px;color:#666;line-height:1.7}
+.item{border:1px solid #ddd;border-radius:12px;padding:15px;margin-top:10px}
+.hidden{display:none}
+.back{background:#666}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>OPEN RADAR</h1>
-  <p>公開情報を、見つけやすく。</p>
+<h1>OPEN RADAR</h1>
+<p>公開情報を、見つけやすく。</p>
 </header>
 
 <main>
 
-<div id="listPage">
+<!-- トップ -->
+<section id="home">
+<div class="card">
+<h2>公開情報を探す</h2>
 
-  <div class="card">
-    <h2>地域を選択</h2>
-    <select id="areaSelect">
-      <option value="otsu">大津市</option>
-    </select>
-  </div>
+<input id="keyword"
+placeholder="施設名・地域・キーワードで検索">
 
-  <div class="card">
-    <h2>公開情報を検索</h2>
+<select id="area">
+<option value="">都道府県を選択</option>
+<option value="滋賀県">滋賀県</option>
+</select>
 
-    <input
-      id="search"
-      placeholder="施設名・事業・キーワードなど"
-    >
+<select id="city">
+<option value="">市町村を選択</option>
+<option value="大津市">大津市</option>
+</select>
 
-    <select id="category">
-      <option value="">すべての分野</option>
-    </select>
+<select id="category">
+<option value="">分野を選択</option>
+<option value="施設・店舗">施設・店舗</option>
+<option value="医療・介護">医療・介護</option>
+<option value="建物・都市計画">建物・都市計画</option>
+<option value="維持管理">維持管理</option>
+<option value="清掃・廃棄物">清掃・廃棄物</option>
+<option value="警備">警備</option>
+<option value="設備">設備</option>
+<option value="その他">その他</option>
+</select>
 
-    <p id="status" class="small">読み込み中…</p>
-  </div>
-
-  <div id="datasets"></div>
-
+<button onclick="searchData()">🔎 情報を探す</button>
 </div>
-
-
-<div id="detailPage" class="detail">
-
-  <div class="card">
-
-    <button onclick="showList()">← 一覧へ戻る</button>
-
-    <div id="detailContent"></div>
-
-  </div>
-
-</div>
-
 
 <div class="card">
-  <h3>OPEN RADARについて</h3>
-
-  <p class="small">
-  OPEN RADARは、国・自治体等が公開している情報を、
-  各公開元の利用条件を確認したうえで整理・表示するサービスです。
-  </p>
-
-  <p class="small">
-  OPEN RADARが営業先、必要な工事・サービス、将来の需要等を
-  判断・推奨するものではありません。
-  情報の利用・判断は利用者自身で行ってください。
-  </p>
-
-  <p class="small">
-  各情報の詳細については、必ず公開元の公式情報をご確認ください。
-  </p>
+<h3>OPEN RADARの考え方</h3>
+<p class="small">
+国・自治体等が公開している情報を、利用条件を確認したうえで整理・表示します。
+営業先や必要なサービスをOPEN RADARが判断するものではありません。
+</p>
 </div>
+
+<div id="results"></div>
+</section>
+
+
+<!-- 詳細 -->
+<section id="detail" class="hidden">
+<div class="card">
+<button class="back" onclick="goHome()">← 一覧へ戻る</button>
+<div id="detailBody"></div>
+</div>
+</section>
 
 </main>
 
-
 <script>
 
-let radarData=null;
+let datasets=[];
 
+async function load(){
 
-async function loadData(){
+try{
 
-  try{
+const r=await fetch("otsu-data.json");
+const data=await r.json();
 
-    const response=await fetch("otsu-data.json");
+datasets=data.datasets || [];
 
-    if(!response.ok){
-      throw new Error("data error");
-    }
+}catch(e){
 
-    radarData=await response.json();
-
-    buildCategories();
-    renderDatasets();
-
-  }catch(error){
-
-    document.getElementById("status").textContent=
-      "データを読み込めませんでした。";
-
-  }
+console.log(e);
 
 }
 
+}
 
-function buildCategories(){
+function searchData(){
 
-  const select=document.getElementById("category");
+const keyword=
+document.getElementById("keyword").value.toLowerCase();
 
-  const categories=[
-    ...new Set(
-      radarData.datasets
-      .map(x=>x.category)
-      .filter(Boolean)
-    )
-  ];
+const area=
+document.getElementById("area").value;
 
-  categories.forEach(category=>{
+const city=
+document.getElementById("city").value;
 
-    const option=document.createElement("option");
+const category=
+document.getElementById("category").value;
 
-    option.value=category;
-    option.textContent=category;
+const results=document.getElementById("results");
 
-    select.appendChild(option);
+results.innerHTML="";
 
-  });
+const found=datasets.filter(x=>{
+
+const text=(
+x.title+" "+
+x.category+" "+
+x.publisher+" "+
+(area||"")+
+(city||"")
+).toLowerCase();
+
+return (!keyword || text.includes(keyword))
+&& (!category || x.category===category);
+
+});
+
+if(found.length===0){
+
+results.innerHTML=
+'<div class="card">該当する公開情報はありません。</div>';
+
+return;
 
 }
 
+found.forEach((x,i)=>{
 
-function renderDatasets(){
+const div=document.createElement("div");
 
-  const keyword=
-    document.getElementById("search").value
-    .toLowerCase();
+div.className="card item";
 
-  const category=
-    document.getElementById("category").value;
+div.innerHTML=`
 
-  const box=document.getElementById("datasets");
+<span class="badge">
+${safe(x.category||"その他")}
+</span>
 
-  box.innerHTML="";
+<h3>${safe(x.title)}</h3>
 
+<p class="small">
+公開元：${safe(x.publisher||"")}<br>
+データ時点：${safe(x.data_as_of||"")}<br>
+公開・更新日：${safe(x.published||"")}
+</p>
 
-  const filtered=radarData.datasets.filter(dataset=>{
+<button onclick="showDetail(${i})">
+詳細を見る
+</button>
 
-    const text=(
-      dataset.title+" "+
-      dataset.category+" "+
-      dataset.publisher
-    ).toLowerCase();
+`;
 
-    return(
-      (!keyword || text.includes(keyword)) &&
-      (!category || dataset.category===category)
-    );
+results.appendChild(div);
 
-  });
-
-
-  document.getElementById("status").textContent=
-    filtered.length+"件の公開データを表示";
-
-
-  filtered.forEach((dataset,index)=>{
-
-    const div=document.createElement("div");
-
-    div.className="card dataset";
-
-    div.innerHTML=`
-
-      <span class="badge">
-        ${escapeHtml(dataset.category || "その他")}
-      </span>
-
-      <h2>
-        ${escapeHtml(dataset.title)}
-      </h2>
-
-      <p class="small">
-        公開元：${escapeHtml(dataset.publisher || "")}<br>
-        データ時点：${escapeHtml(dataset.data_as_of || "記載なし")}<br>
-        更新・公開日：${escapeHtml(dataset.published || "記載なし")}
-      </p>
-
-      <button onclick="showDetail(${index})">
-        詳細を見る
-      </button>
-
-    `;
-
-    box.appendChild(div);
-
-  });
+});
 
 }
-
 
 function showDetail(index){
 
-  const dataset=radarData.datasets[index];
+const x=datasets[index];
 
-  document.getElementById("listPage").style.display="none";
-  document.getElementById("detailPage").style.display="block";
+document.getElementById("home").classList.add("hidden");
+document.getElementById("detail").classList.remove("hidden");
 
+document.getElementById("detailBody").innerHTML=`
 
-  let html=`
+<span class="badge">
+${safe(x.category||"その他")}
+</span>
 
-    <span class="badge">
-      ${escapeHtml(dataset.category || "その他")}
-    </span>
+<h2>${safe(x.title)}</h2>
 
-    <h1>
-      ${escapeHtml(dataset.title)}
-    </h1>
+<p>
+<b>公開元：</b>${safe(x.publisher||"")}<br>
+<b>データ時点：</b>${safe(x.data_as_of||"")}<br>
+<b>公開・更新日：</b>${safe(x.published||"")}
+</p>
 
-    <p>
-      <b>公開元：</b>
-      ${escapeHtml(dataset.publisher || "")}
-    </p>
+<hr>
 
-    <p>
-      <b>データ時点：</b>
-      ${escapeHtml(dataset.data_as_of || "記載なし")}
-    </p>
+<h3>資料・公式情報</h3>
 
-    <p>
-      <b>公開・更新日：</b>
-      ${escapeHtml(dataset.published || "記載なし")}
-    </p>
+<p class="small">
+元データの形式にかかわらず、確認できる資料を
+OPEN RADARから直接たどれるようにします。
+</p>
 
-    <div class="source">
+<a class="link"
+href="${safeAttr(x.source_url||"#")}"
+target="_blank"
+rel="noopener">
+🌐 公式ページを開く
+</a>
 
-      <h3>公式情報</h3>
+${
+x.file_url
+?
+`<a class="link"
+href="${safeAttr(x.file_url)}"
+target="_blank"
+rel="noopener">
+📄 元資料を開く
+</a>`
+:""
+}
 
-      <p class="small">
-        詳細な内容・元データについては、
-        公開元の公式ページをご確認ください。
-      </p>
+<div class="item">
+<h3>利用条件</h3>
+<p class="small">
+${safe(x.license||"公開元の利用条件をご確認ください。")}
+</p>
+</div>
 
-      <a
-        class="button"
-        href="${dataset.source_url}"
-        target="_blank"
-        rel="noopener"
-      >
-        公式ページを開く
-      </a>
+<div class="item">
+<h3>OPEN RADARについて</h3>
+<p class="small">
+この情報は公開元の情報を整理して表示しています。
+最新情報・正確性については必ず公式情報をご確認ください。
+</p>
+</div>
 
-    </div>
-
-    <div class="source">
-
-      <h3>利用条件</h3>
-
-      <p class="small">
-        ${escapeHtml(dataset.license || "公開元の利用条件をご確認ください。")}
-      </p>
-
-    </div>
-
-    <div class="source">
-
-      <h3>OPEN RADARの表示について</h3>
-
-      <p class="small">
-        このページは公開元の情報を整理して表示しています。
-        内容の正確性・最新性については必ず公式情報をご確認ください。
-      </p>
-
-    </div>
-
-  `;
-
-
-  document.getElementById("detailContent").innerHTML=html;
+`;
 
 }
 
+function goHome(){
 
-function showList(){
-
-  document.getElementById("detailPage").style.display="none";
-  document.getElementById("listPage").style.display="block";
-
-}
-
-
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+document.getElementById("detail").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
 
 }
 
+function safe(v){
 
-document
-.getElementById("search")
-.addEventListener("input",renderDatasets);
+return String(v??"")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
 
-document
-.getElementById("category")
-.addEventListener("change",renderDatasets);
+}
 
+function safeAttr(v){
 
-loadData();
+return safe(v);
+
+}
+
+load();
 
 </script>
 
