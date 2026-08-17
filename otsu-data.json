@@ -14,9 +14,9 @@
       "format": "CSV",
       "file_size": "828.8KB",
       "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
-      "file_url": "",https://www.city.otsu.lg.jp/material/files/group/4/od_2605.csv
+      "file_url": "https://www.city.otsu.lg.jp/material/files/group/4/od_2605.csv",
       "license": "大津市オープンデータ利用規約に従う",
-      "description": "大津市が公開する食品営業許可施設の一覧です。",
+      "description": "大津市が公開する食品営業許可施設のオープンデータです。",
       "records": []
     }
   ]
