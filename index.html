@@ -475,24 +475,25 @@ function showDetail(item){
   */
 
   if(
-    !fileURL &&
-    sourceURL &&
-    String(item.format || "")
-      .toUpperCase()
-      .includes("CSV")
-  ){
+  sourceURL &&
+  String(item.format || "")
+    .toUpperCase()
+    .includes("CSV")
+){
+  const viewerURL =
+    "https://docs.google.com/gview?embedded=1&url=" +
+    encodeURIComponent(sourceURL);
 
-    buttons += `
-      <a
-        class="link"
-        href="${escapeAttribute(sourceURL)}"
-        target="_blank"
-        rel="noopener"
-      >
-        📊 公式CSVを開く
-      </a>
-    `;
-
+  buttons += `
+    <a
+      class="link"
+      href="${viewerURL}"
+      target="_blank"
+      rel="noopener"
+    >
+      📊 CSVを画面で見る
+    </a>
+  `;
   }
 
 
