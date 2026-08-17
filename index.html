@@ -3,23 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OPEN RADAR｜公開情報検索</title>
+<title>OPEN RADAR</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:system-ui,sans-serif;background:#f4f6f8;color:#222}
-header{background:#111;color:#fff;padding:24px 18px}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:#f4f6f8;
+  color:#222;
+}
+header{
+  background:#111;
+  color:#fff;
+  padding:24px 18px;
+}
 header h1{margin:0;font-size:30px}
-header p{margin:8px 0 0;color:#ccc}
-main{max-width:900px;margin:auto;padding:16px}
-.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:14px;box-shadow:0 2px 8px #0001}
-h2{margin-top:0}
-input,select{width:100%;padding:13px;margin:6px 0 12px;border:1px solid #ccc;border-radius:9px;font-size:16px}
-button,.link{display:inline-block;border:0;border-radius:9px;padding:11px 15px;background:#222;color:#fff;text-decoration:none;margin:4px 4px 4px 0;font-size:15px}
-.badge{display:inline-block;background:#eee;padding:5px 9px;border-radius:20px;font-size:13px}
-.small{font-size:13px;color:#666;line-height:1.7}
-.item{border:1px solid #ddd;border-radius:12px;padding:15px;margin-top:10px}
+header p{margin:7px 0 0;color:#ccc}
+main{max-width:950px;margin:auto;padding:16px}
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:18px;
+  margin-bottom:14px;
+  box-shadow:0 2px 8px #0001;
+}
+input,select{
+  width:100%;
+  padding:13px;
+  margin:6px 0 12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:16px;
+}
+button,.link{
+  display:inline-block;
+  border:0;
+  border-radius:9px;
+  padding:11px 15px;
+  background:#222;
+  color:#fff;
+  text-decoration:none;
+  margin:4px 4px 4px 0;
+  font-size:15px;
+}
+.badge{
+  display:inline-block;
+  background:#eee;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:13px;
+}
+.small{
+  color:#666;
+  font-size:13px;
+  line-height:1.7;
+}
+.item{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:15px;
+  margin-top:10px;
+}
 .hidden{display:none}
 .back{background:#666}
+.notice{
+  background:#fff8df;
+  border:1px solid #eadb9a;
+  border-radius:9px;
+  padding:12px;
+  font-size:13px;
+}
 </style>
 </head>
 
@@ -32,81 +86,112 @@ button,.link{display:inline-block;border:0;border-radius:9px;padding:11px 15px;b
 
 <main>
 
-<!-- トップ -->
+<!-- TOP -->
 <section id="home">
+
 <div class="card">
-<h2>公開情報を探す</h2>
 
-<input id="keyword"
-placeholder="施設名・地域・キーワードで検索">
+<h2>🔎 公開情報を探す</h2>
 
-<select id="area">
-<option value="">都道府県を選択</option>
+<input
+id="keyword"
+placeholder="施設名・データ名・キーワード"
+oninput="searchData()"
+>
+
+<select id="area" onchange="searchData()">
+<option value="">地域：すべて</option>
 <option value="滋賀県">滋賀県</option>
 </select>
 
-<select id="city">
-<option value="">市町村を選択</option>
+<select id="city" onchange="searchData()">
+<option value="">市町村：すべて</option>
 <option value="大津市">大津市</option>
 </select>
 
-<select id="category">
-<option value="">分野を選択</option>
-<option value="施設・店舗">施設・店舗</option>
-<option value="医療・介護">医療・介護</option>
-<option value="建物・都市計画">建物・都市計画</option>
-<option value="維持管理">維持管理</option>
-<option value="清掃・廃棄物">清掃・廃棄物</option>
-<option value="警備">警備</option>
-<option value="設備">設備</option>
-<option value="その他">その他</option>
+<select id="format" onchange="searchData()">
+<option value="">形式：すべて</option>
+<option value="CSV">CSV</option>
+<option value="JSON">JSON</option>
+<option value="RDF">RDF</option>
+<option value="XLS">XLS</option>
+<option value="XLSX">XLSX</option>
+<option value="PDF">PDF</option>
 </select>
 
-<button onclick="searchData()">🔎 情報を探す</button>
-</div>
+<p id="count" class="small"></p>
 
-<div class="card">
-<h3>OPEN RADARの考え方</h3>
-<p class="small">
-国・自治体等が公開している情報を、利用条件を確認したうえで整理・表示します。
-営業先や必要なサービスをOPEN RADARが判断するものではありません。
-</p>
 </div>
 
 <div id="results"></div>
+
 </section>
 
 
-<!-- 詳細 -->
+<!-- DETAIL -->
 <section id="detail" class="hidden">
+
 <div class="card">
+
 <button class="back" onclick="goHome()">← 一覧へ戻る</button>
+
 <div id="detailBody"></div>
+
 </div>
+
 </section>
+
+
+<div class="card">
+
+<h3>OPEN RADARについて</h3>
+
+<p class="small">
+国・自治体等が公開している情報を、公開元の利用条件を確認したうえで整理・表示します。
+</p>
+
+<p class="small">
+OPEN RADARが営業先、必要な工事、更新時期などを判断・推奨するものではありません。
+情報の利用・判断は利用者自身で行ってください。
+</p>
+
+<p class="small">
+各情報の詳細・最新性については、必ず公開元の公式情報をご確認ください。
+</p>
+
+</div>
 
 </main>
+
 
 <script>
 
 let datasets=[];
 
-async function load(){
+
+async function loadData(){
 
 try{
 
-const r=await fetch("otsu-data.json");
-const data=await r.json();
+const response=await fetch("otsu-data.json");
+
+if(!response.ok) throw new Error();
+
+const data=await response.json();
 
 datasets=data.datasets || [];
 
+searchData();
+
 }catch(e){
 
-console.log(e);
+document.getElementById("count").textContent=
+"データを読み込めませんでした。";
 
 }
 
 }
+
 
 function searchData(){
 
@@ -119,12 +204,14 @@ document.getElementById("area").value;
 const city=
 document.getElementById("city").value;
 
-const category=
-document.getElementById("category").value;
+const format=
+document.getElementById("format").value;
 
-const results=document.getElementById("results");
+const results=
+document.getElementById("results");
 
 results.innerHTML="";
+
 
 const found=datasets.filter(x=>{
 
@@ -132,23 +219,26 @@ const text=(
 x.title+" "+
 x.category+" "+
 x.publisher+" "+
-(area||"")+
-(city||"")
+x.prefecture+" "+
+x.city+" "+
+x.description
 ).toLowerCase();
 
-return (!keyword || text.includes(keyword))
-&& (!category || x.category===category);
+const formats=String(x.format||"").toUpperCase();
+
+return(
+(!keyword || text.includes(keyword)) &&
+(!area || x.prefecture===area) &&
+(!city || x.city===city) &&
+(!format || formats.includes(format))
+);
 
 });
 
-if(found.length===0){
 
-results.innerHTML=
-'<div class="card">該当する公開情報はありません。</div>';
+document.getElementById("count").textContent=
+found.length+"件";
 
-return;
-
-}
 
 found.forEach((x,i)=>{
 
@@ -159,15 +249,26 @@ div.className="card item";
 div.innerHTML=`
 
 <span class="badge">
-${safe(x.category||"その他")}
+${safe(x.format || "形式不明")}
 </span>
 
 <h3>${safe(x.title)}</h3>
 
 <p class="small">
-公開元：${safe(x.publisher||"")}<br>
-データ時点：${safe(x.data_as_of||"")}<br>
-公開・更新日：${safe(x.published||"")}
+
+地域：
+${safe(x.prefecture || "")}
+${safe(x.city || "")}<br>
+
+公開元：
+${safe(x.publisher || "")}<br>
+
+データ時点：
+${safe(x.data_as_of || "記載なし")}<br>
+
+更新日：
+${safe(x.published || "記載なし")}
+
 </p>
 
 <button onclick="showDetail(${i})">
@@ -182,80 +283,135 @@ results.appendChild(div);
 
 }
 
+
 function showDetail(index){
 
 const x=datasets[index];
 
-document.getElementById("home").classList.add("hidden");
-document.getElementById("detail").classList.remove("hidden");
+document.getElementById("home")
+.classList.add("hidden");
 
-document.getElementById("detailBody").innerHTML=`
+document.getElementById("detail")
+.classList.remove("hidden");
+
+
+let html=`
 
 <span class="badge">
-${safe(x.category||"その他")}
+${safe(x.format || "形式不明")}
 </span>
 
 <h2>${safe(x.title)}</h2>
 
 <p>
-<b>公開元：</b>${safe(x.publisher||"")}<br>
-<b>データ時点：</b>${safe(x.data_as_of||"")}<br>
-<b>公開・更新日：</b>${safe(x.published||"")}
+
+<b>地域：</b>
+${safe(x.prefecture || "")}
+${safe(x.city || "")}<br>
+
+<b>公開元：</b>
+${safe(x.publisher || "")}<br>
+
+<b>データ時点：</b>
+${safe(x.data_as_of || "記載なし")}<br>
+
+<b>更新日：</b>
+${safe(x.published || "記載なし")}
+
 </p>
 
-<hr>
+`;
 
-<h3>資料・公式情報</h3>
 
-<p class="small">
-元データの形式にかかわらず、確認できる資料を
-OPEN RADARから直接たどれるようにします。
-</p>
+if(x.description){
 
-<a class="link"
-href="${safeAttr(x.source_url||"#")}"
-target="_blank"
-rel="noopener">
-🌐 公式ページを開く
-</a>
-
-${
-x.file_url
-?
-`<a class="link"
-href="${safeAttr(x.file_url)}"
-target="_blank"
-rel="noopener">
-📄 元資料を開く
-</a>`
-:""
-}
-
+html+=`
 <div class="item">
-<h3>利用条件</h3>
+<h3>概要</h3>
 <p class="small">
-${safe(x.license||"公開元の利用条件をご確認ください。")}
+${safe(x.description)}
 </p>
 </div>
-
-<div class="item">
-<h3>OPEN RADARについて</h3>
-<p class="small">
-この情報は公開元の情報を整理して表示しています。
-最新情報・正確性については必ず公式情報をご確認ください。
-</p>
-</div>
-
 `;
 
 }
 
-function goHome(){
 
-document.getElementById("detail").classList.add("hidden");
-document.getElementById("home").classList.remove("hidden");
+html+=`
+<div class="item">
+
+<h3>見る</h3>
+
+`;
+
+if(x.source_url){
+
+html+=`
+<a
+class="link"
+href="${safeAttr(x.source_url)}"
+target="_blank"
+rel="noopener">
+🌐 公式ページ
+</a>
+`;
 
 }
+
+
+if(x.file_url){
+
+html+=`
+<a
+class="link"
+href="${safeAttr(x.file_url)}"
+target="_blank"
+rel="noopener">
+📄 元データを開く
+</a>
+`;
+
+}else{
+
+html+=`
+<p class="small">
+現在、元ファイルの直接URLは登録されていません。
+公式ページから元データをご確認ください。
+</p>
+`;
+
+}
+
+
+html+=`
+
+</div>
+
+<div class="notice">
+
+OPEN RADARは公開元の情報を整理して表示しています。
+内容の利用・判断は利用者自身で行ってください。
+
+</div>
+
+`;
+
+
+document.getElementById("detailBody").innerHTML=html;
+
+}
+
+
+function goHome(){
+
+document.getElementById("detail")
+.classList.add("hidden");
+
+document.getElementById("home")
+.classList.remove("hidden");
+
+}
+
 
 function safe(v){
 
@@ -268,13 +424,15 @@ return String(v??"")
 
 }
 
+
 function safeAttr(v){
 
 return safe(v);
 
 }
 
-load();
+
+loadData();
 
 </script>
 
