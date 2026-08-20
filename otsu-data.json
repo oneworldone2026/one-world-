@@ -1,6 +1,6 @@
 {
   "area": "大津市",
-  "updated": "2026-08-17",
+  "updated": "2026-08-20",
   "datasets": [
     {
       "id": "otsu-food-business",
@@ -8,14 +8,9 @@
       "category": "施設・店舗",
       "prefecture": "滋賀県",
       "city": "大津市",
-      "data_as_of": "2026年5月末時点",
-      "published": "2026-06-17",
       "publisher": "大津市",
       "format": "CSV",
-      "file_size": "828.8KB",
-      "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
-      "file_url": "https://www.city.otsu.lg.jp/material/files/group/4/od_2605.csv",
-      "license": "大津市オープンデータ利用規約に従う",
+      "source_url": "https://www.city.otsu.lg.jp/",
       "description": "大津市が公開する食品営業許可施設のオープンデータです。",
       "records": []
     }
