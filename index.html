@@ -474,29 +474,23 @@ function showDetail(item){
     file_urlが空ならsource_urlを使用
   */
 
-  if(
+if(
   sourceURL &&
   String(item.format || "")
     .toUpperCase()
     .includes("CSV")
 ){
-  const viewerURL =
-    "https://docs.google.com/gview?embedded=1&url=" +
-    encodeURIComponent(sourceURL);
-
   buttons += `
     <a
       class="link"
-      href="${viewerURL}"
+      href="${escapeAttribute(sourceURL)}"
       target="_blank"
       rel="noopener"
     >
-      📊 CSVを画面で見る
+      📊 CSVデータを開く
     </a>
   `;
-  }
-
-
+}
   /*
     公式ページ
   */
