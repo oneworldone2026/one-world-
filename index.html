@@ -297,17 +297,9 @@ function showDetail(index) {
 
   detail.appendChild(info);
 
-  if (item.file_url) {
-    const fileLink = document.createElement("a");
+  
 
-    fileLink.className = "link";
-    fileLink.href = item.file_url;
-    fileLink.target = "_blank";
-    fileLink.rel = "noopener";
-    fileLink.textContent = "📊 公開データを開く";
 
-    detail.appendChild(fileLink);
-  }
 
   if (item.source_url) {
     const sourceLink = document.createElement("a");
