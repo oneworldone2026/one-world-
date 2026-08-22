@@ -2,139 +2,91 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>OPEN RADAR</title>
 
 <style>
-*{box-sizing:border-box}
+* { box-sizing: border-box; }
 
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#f5f5f5;
-  color:#222;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  color: #222;
 }
 
-header{
-  background:#111;
-  color:#fff;
-  padding:22px 16px;
+header {
+  background: #111;
+  color: #fff;
+  padding: 24px 20px;
 }
 
-header h1{
-  margin:0;
-  font-size:30px;
+header h1 {
+  margin: 0;
+  font-size: 30px;
 }
 
-header p{
-  margin:6px 0 0;
-  color:#ccc;
+header p {
+  margin: 8px 0 0;
+  color: #ccc;
 }
 
-main{
-  max-width:1000px;
-  margin:auto;
-  padding:16px;
+main {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
-.card{
-  background:#fff;
-  border-radius:14px;
-  padding:18px;
-  margin-bottom:16px;
-  box-shadow:0 2px 8px rgba(0,0,0,.06);
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 18px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-input,select{
-  width:100%;
-  padding:13px;
-  margin:6px 0;
-  border:1px solid #ccc;
-  border-radius:8px;
-  font-size:16px;
+input, select {
+  width: 100%;
+  padding: 14px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 9px;
+  font-size: 16px;
 }
 
-button,.link{
-  display:inline-block;
-  padding:11px 14px;
-  margin:5px 4px 5px 0;
-  border:0;
-  border-radius:8px;
-  background:#222;
-  color:#fff;
-  text-decoration:none;
-  cursor:pointer;
-  font-size:14px;
+button, .link {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border: 0;
+  border-radius: 9px;
+  background: #222;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
 }
 
-.link{
-  background:#555;
+.badge {
+  display: inline-block;
+  padding: 5px 9px;
+  margin: 3px;
+  background: #eee;
+  border-radius: 8px;
+  font-size: 13px;
 }
 
-.item{
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px;
-  margin:10px 0;
+.small {
+  color: #666;
+  line-height: 1.6;
 }
 
-.item h3{
-  margin:0 0 8px;
-}
+.hidden { display: none; }
 
-.badge{
-  display:inline-block;
-  padding:4px 8px;
-  background:#eee;
-  border-radius:6px;
-  font-size:12px;
-  margin-right:5px;
-}
-
-.small{
-  font-size:13px;
-  color:#666;
-  line-height:1.6;
-}
-
-.hidden{
-  display:none;
-}
-
-.back{
-  background:#666;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:12px;
-}
-
-th,td{
-  border:1px solid #ddd;
-  padding:8px;
-  text-align:left;
-  font-size:13px;
-}
-
-th{
-  background:#eee;
-}
-
-@media(max-width:600px){
-  header h1{
-    font-size:25px;
-  }
-
-  .card{
-    padding:14px;
-  }
-
-  button,.link{
-    width:100%;
-    margin:5px 0;
-  }
+.error {
+  color: #b00020;
+  font-weight: bold;
 }
 </style>
 </head>
@@ -143,174 +95,106 @@ th{
 
 <header>
   <h1>OPEN RADAR</h1>
-  <p>全国の公開データを探すためのデータレーダー</p>
+  <p>公開情報を、見つけやすく。</p>
 </header>
 
 <main>
 
-<div id="listPage">
+<section id="listPage">
 
   <div class="card">
-    <h2>公開データを探す</h2>
+    <h2>公開情報を探す</h2>
 
     <input
       id="keyword"
       type="search"
-      placeholder="キーワード・施設名・自治体名など"
-      oninput="searchData()"
+      placeholder="キーワード・施設名・地域など"
     >
 
-    <select id="category" onchange="searchData()">
-      <option value="">すべての分野</option>
+    <select id="category">
+      <option value="">分野：すべて</option>
     </select>
 
-    <select id="prefecture" onchange="searchData()">
-      <option value="">すべての都道府県</option>
+    <select id="prefecture">
+      <option value="">都道府県：すべて</option>
     </select>
 
-    <div id="count" class="small">データを読み込んでいます…</div>
-  </div>
+    <select id="city">
+      <option value="">市町村：すべて</option>
+    </select>
 
-  <div class="card">
-    <div id="results"></div>
-  </div>
-
-  <div class="card">
-    <h3>OPEN RADARについて</h3>
-
-    <p class="small">
-      国・自治体等が公開している情報を、公開元の利用条件を確認したうえで
-      探しやすく整理するためのサイトです。
-    </p>
-
-    <p class="small">
-      最新情報・正確性については必ず公開元の公式情報をご確認ください。
+    <p id="status" class="small">
+      データを読み込み中...
     </p>
   </div>
 
-</div>
+  <div id="results"></div>
 
+</section>
 
-<div id="detailPage" class="hidden">
+<section id="detailPage" class="hidden">
 
   <div class="card">
-
-    <button class="back" onclick="showList()">← 一覧に戻る</button>
-
+    <button id="backButton">← 一覧に戻る</button>
     <div id="detail"></div>
-
   </div>
 
-</div>
+</section>
 
 </main>
-
 
 <script>
 
 let datasets = [];
 
+async function loadData() {
+  try {
+    const response = await fetch("./otsu-data.json?v=" + Date.now());
 
-/* =========================
-   データ読み込み
-========================= */
-
-async function loadData(){
-
-  try{
-
-    const response = await fetch("大津データ.json");
-
-    if(!response.ok){
-      throw new Error("JSON読み込み失敗");
+    if (!response.ok) {
+      throw new Error("HTTP " + response.status);
     }
 
     const data = await response.json();
 
-    datasets = Array.isArray(data.datasets)
-      ? data.datasets
-      : [];
+    if (!data || !Array.isArray(data.datasets)) {
+      throw new Error("Invalid data");
+    }
+
+    datasets = data.datasets;
 
     makeFilters();
     searchData();
 
-  }catch(error){
-
-    document.getElementById("count").textContent =
-      "データを読み込めませんでした。";
-
+  } catch (error) {
     console.error(error);
+
+    document.getElementById("status").innerHTML =
+      '<span class="error">データを読み込めませんでした。</span>';
   }
 }
 
-
-/* =========================
-   絞り込み項目
-========================= */
-
-function makeFilters(){
-
-  const categories = new Set();
-  const prefectures = new Set();
-
-  datasets.forEach(item => {
-
-    if(item.category){
-      categories.add(item.category);
-    }
-
-    if(item.prefecture){
-      prefectures.add(item.prefecture);
-    }
-
-  });
-
-
-  const category =
-    document.getElementById("category");
-
-  categories.forEach(value => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = value;
-    option.textContent = value;
-
-    category.appendChild(option);
-
-  });
-
-
-  const prefecture =
-    document.getElementById("prefecture");
-
-  prefectures.forEach(value => {
-
-    const option =
-      document.createElement("option");
-
-    option.value = value;
-    option.textContent = value;
-
-    prefecture.appendChild(option);
-
-  });
-
+function makeFilters() {
+  addOptions("category", datasets.map(item => item.category));
+  addOptions("prefecture", datasets.map(item => item.prefecture));
+  addOptions("city", datasets.map(item => item.city));
 }
 
+function addOptions(id, values) {
+  const select = document.getElementById(id);
+  const unique = [...new Set(values.filter(Boolean))];
 
-/* =========================
-   検索
-========================= */
+  unique.forEach(value => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+}
 
-function searchData(){
-
+function searchData() {
   const keyword =
-    document.getElementById("keyword")
-      .value
-      .trim()
-      .toLowerCase();
+    document.getElementById("keyword").value.trim().toLowerCase();
 
   const category =
     document.getElementById("category").value;
@@ -318,318 +202,159 @@ function searchData(){
   const prefecture =
     document.getElementById("prefecture").value;
 
+  const city =
+    document.getElementById("city").value;
 
-  const results =
-    datasets.filter(item => {
+  const filtered = datasets.filter(item => {
+    const text = [
+      item.title,
+      item.description,
+      item.category,
+      item.prefecture,
+      item.city,
+      item.publisher
+    ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
 
-      const text = [
-
-        item.title,
-        item.description,
-        item.category,
-        item.prefecture,
-        item.city,
-        item.publisher,
-        item.id
-
-      ]
-      .filter(Boolean)
-      .join(" ")
-      .toLowerCase();
-
-
-      const keywordOK =
-        !keyword || text.includes(keyword);
-
-      const categoryOK =
-        !category || item.category === category;
-
-      const prefectureOK =
-        !prefecture || item.prefecture === prefecture;
-
-
-      return keywordOK &&
-             categoryOK &&
-             prefectureOK;
-
-    });
-
-
-  document.getElementById("count").textContent =
-    results.length + "件のデータ";
-
-
-  const container =
-    document.getElementById("results");
-
-  container.innerHTML = "";
-
-
-  if(results.length === 0){
-
-    container.innerHTML =
-      "<p>該当するデータがありません。</p>";
-
-    return;
-
-  }
-
-
-  results.forEach(item => {
-
-    const div =
-      document.createElement("div");
-
-    div.className = "item";
-
-
-    div.innerHTML = `
-
-      <h3>${escapeHTML(item.title || "名称未設定")}</h3>
-
-      <span class="badge">
-        ${escapeHTML(item.category || "未分類")}
-      </span>
-
-      <span class="badge">
-        ${escapeHTML(item.prefecture || "")}
-      </span>
-
-      <span class="badge">
-        ${escapeHTML(item.city || "")}
-      </span>
-
-      <p class="small">
-        公開元：
-        ${escapeHTML(item.publisher || "不明")}
-      </p>
-
-      <p class="small">
-        ${escapeHTML(item.description || "")}
-      </p>
-
-      <button onclick='showDetail(${JSON.stringify(item)})'>
-        詳細を見る
-      </button>
-
-    `;
-
-
-    container.appendChild(div);
-
+    return (
+      (!keyword || text.includes(keyword)) &&
+      (!category || item.category === category) &&
+      (!prefecture || item.prefecture === prefecture) &&
+      (!city || item.city === city)
+    );
   });
 
+  renderResults(filtered);
 }
 
+function renderResults(items) {
+  const results = document.getElementById("results");
 
-/* =========================
-   詳細表示
-========================= */
+  document.getElementById("status").textContent =
+    items.length + "件の公開情報";
 
-function showDetail(item){
+  results.innerHTML = "";
 
-  document.getElementById("listPage")
-    .classList.add("hidden");
+  items.forEach(item => {
+    const index = datasets.indexOf(item);
+    const card = document.createElement("div");
 
-  document.getElementById("detailPage")
-    .classList.remove("hidden");
+    card.className = "card";
 
+    const title = document.createElement("h2");
+    title.textContent = item.title || "名称未設定";
+    card.appendChild(title);
 
-  const detail =
-    document.getElementById("detail");
+    const info = document.createElement("p");
+    info.className = "small";
+    info.textContent =
+      (item.prefecture || "") + " " +
+      (item.city || "") + " / " +
+      (item.publisher || "");
+    card.appendChild(info);
 
+    const button = document.createElement("button");
+    button.textContent = "詳細を見る";
 
-  const sourceURL =
-    item.source_url || "";
+    button.addEventListener("click", () => {
+      showDetail(index);
+    });
 
-  const fileURL =
-    item.file_url || "";
+    card.appendChild(button);
+    results.appendChild(card);
+  });
+}
 
+function showDetail(index) {
+  const item = datasets[index];
 
-  let buttons = "";
+  if (!item) return;
 
+  document.getElementById("listPage").classList.add("hidden");
+  document.getElementById("detailPage").classList.remove("hidden");
 
-  /*
-    ファイルURLがある場合
-  */
+  const detail = document.getElementById("detail");
+  detail.innerHTML = "";
 
-  if(fileURL){
+  const title = document.createElement("h2");
+  title.textContent = item.title || "名称未設定";
+  detail.appendChild(title);
 
-    buttons += `
-      <a
-        class="link"
-        href="${escapeAttribute(fileURL)}"
-        target="_blank"
-        rel="noopener"
-      >
-        📂 データを開く
-      </a>
-    `;
+  const info = document.createElement("p");
+  info.className = "small";
 
+  info.textContent =
+    "地域：" +
+    (item.prefecture || "") +
+    " " +
+    (item.city || "") +
+    " / 公開元：" +
+    (item.publisher || "") +
+    " / 形式：" +
+    (item.format || "");
+
+  detail.appendChild(info);
+
+  if (item.file_url) {
+    const fileLink = document.createElement("a");
+
+    fileLink.className = "link";
+    fileLink.href = item.file_url;
+    fileLink.target = "_blank";
+    fileLink.rel = "noopener";
+    fileLink.textContent = "📊 公開データを開く";
+
+    detail.appendChild(fileLink);
   }
 
+  if (item.source_url) {
+    const sourceLink = document.createElement("a");
 
-  /*
-    CSVの場合
-    file_urlが空ならsource_urlを使用
-  */
+    sourceLink.className = "link";
+    sourceLink.href = item.source_url;
+    sourceLink.target = "_blank";
+    sourceLink.rel = "noopener";
+    sourceLink.textContent = "🌐 公開元の公式ページ";
 
-if(
-  sourceURL &&
-  String(item.format || "")
-    .toUpperCase()
-    .includes("CSV")
-){
-  buttons += `
-    <a
-      class="link"
-      href="${escapeAttribute(sourceURL)}"
-      target="_blank"
-      rel="noopener"
-    >
-      📊 CSVデータを開く
-    </a>
-  `;
-}
-  /*
-    公式ページ
-  */
-
-  if(sourceURL){
-
-    buttons += `
-      <a
-        class="link"
-        href="${escapeAttribute(sourceURL)}"
-        target="_blank"
-        rel="noopener"
-      >
-        🌐 公開元の公式ページ
-      </a>
-    `;
-
+    detail.appendChild(sourceLink);
   }
 
+  const description = document.createElement("p");
+  description.className = "small";
+  description.textContent = item.description || "";
 
-  detail.innerHTML = `
+  detail.appendChild(description);
 
-    <h2>
-      ${escapeHTML(item.title || "名称未設定")}
-    </h2>
-
-    <p>
-      <span class="badge">
-        ${escapeHTML(item.category || "未分類")}
-      </span>
-
-      <span class="badge">
-        ${escapeHTML(item.format || "形式不明")}
-      </span>
-    </p>
-
-    <hr>
-
-    <p>
-      <strong>都道府県：</strong>
-      ${escapeHTML(item.prefecture || "―")}
-    </p>
-
-    <p>
-      <strong>市区町村：</strong>
-      ${escapeHTML(item.city || "―")}
-    </p>
-
-    <p>
-      <strong>公開元：</strong>
-      ${escapeHTML(item.publisher || "―")}
-    </p>
-
-    <p>
-      <strong>データ基準日：</strong>
-      ${escapeHTML(item.data_as_of || "―")}
-    </p>
-
-    <p>
-      <strong>公開日：</strong>
-      ${escapeHTML(item.published || "―")}
-    </p>
-
-    <p>
-      <strong>更新日：</strong>
-      ${escapeHTML(item.updated || "―")}
-    </p>
-
-    <p>
-      <strong>ファイルサイズ：</strong>
-      ${escapeHTML(item.file_size || "―")}
-    </p>
-
-    <p>
-      <strong>ライセンス：</strong>
-      ${escapeHTML(item.license || "―")}
-    </p>
-
-    <hr>
-
-    <h3>詳細資料・データ</h3>
-
-    ${buttons || "<p>公開資料へのリンクは登録されていません。</p>"}
-
-    <hr>
-
-    <p class="small">
-      ${escapeHTML(item.description || "")}
-    </p>
-
-  `;
-
+  window.scrollTo(0, 0);
 }
 
-
-/* =========================
-   一覧へ戻る
-========================= */
-
-function showList(){
-
-  document.getElementById("detailPage")
-    .classList.add("hidden");
-
-  document.getElementById("listPage")
-    .classList.remove("hidden");
-
+function showList() {
+  document.getElementById("detailPage").classList.add("hidden");
+  document.getElementById("listPage").classList.remove("hidden");
+  window.scrollTo(0, 0);
 }
 
+document
+  .getElementById("keyword")
+  .addEventListener("input", searchData);
 
-/* =========================
-   安全な文字表示
-========================= */
+document
+  .getElementById("category")
+  .addEventListener("change", searchData);
 
-function escapeHTML(value){
+document
+  .getElementById("prefecture")
+  .addEventListener("change", searchData);
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+document
+  .getElementById("city")
+  .addEventListener("change", searchData);
 
-}
-
-
-function escapeAttribute(value){
-
-  return String(value ?? "")
-    .replace(/"/g,"%22")
-    .replace(/</g,"%3C")
-    .replace(/>/g,"%3E");
-
-}
-
-
-/* =========================
-   起動
-========================= */
+document
+  .getElementById("backButton")
+  .addEventListener("click", showList);
 
 loadData();
 
