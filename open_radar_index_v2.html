@@ -47,7 +47,6 @@
     <div id="cards" class="cards"></div>
   </section>
 
-
   <section class="card dataset-card" data-search="盛土規制法 工事許可 宅地造成 特定盛土 開発 建築 大津市 滋賀県 A-15 A-16 A-17 A-18 A-19 A-20 A-21 A-22 A-23 A-24">
     <h2>盛土規制法 工事許可（令和8年度）</h2>
     <div class="meta">滋賀県 大津市 / 公開元：大津市 都市計画部 開発調整課</div>
@@ -79,6 +78,7 @@
 
   <section class="card about"><h2>OPEN RADARについて</h2><p>国・自治体等が公開している情報を、公開元の利用条件を確認したうえで探しやすく整理するためのサイトです。</p><p>OPEN RADAR内の表示は利便性のための整理表示です。最終確認は必ず公開元の公式情報をご確認ください。</p></section>
 </main>
+
 <script>
 const CSV_PATH = './od_2607.csv';
 let rows = [];
@@ -154,38 +154,83 @@ function renderViewer(filter=''){
   const msg=document.getElementById('viewerMessage');
   msg.innerHTML=filtered.length>1000?'<div class="warn">PC表は先頭1,000件、スマホ表示は先頭500件まで表示しています。検索で絞り込んでください。</div>':'';
 }
-function escapeHTML(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+function escapeHTML(s){
+  return String(s??'').replace(/[&<>'"]/g,c=>({
+    '&':'&amp;',
+    '<':'&lt;',
+    '>':'&gt;',
+    "'":'&#39;',
+    '"':'&quot;'
+  }[c]));
+}
 
 async function openViewer(){
-  const viewer=document.getElementById('viewer'); const list=document.getElementById('listPage');
-  try{await loadCSV();renderViewer();list.classList.add('hidden');document.querySelectorAll('.dataset-card').forEach(c=>c.classList.add('hidden'));viewer.classList.remove('hidden');window.scrollTo(0,0);}catch(e){document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'。元データまたは公式公開ページから確認してください。</div>';}
+  const viewer=document.getElementById('viewer');
+  const list=document.getElementById('listPage');
+  try{
+    await loadCSV();
+    renderViewer();
+    list.classList.add('hidden');
+    document.querySelectorAll('.dataset-card').forEach(c=>c.classList.add('hidden'));
+    viewer.classList.remove('hidden');
+    window.scrollTo(0,0);
+  }catch(e){
+    document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'。元データまたは公式公開ページから確認してください。</div>';
+  }
 }
-function backToList(){document.getElementById('viewer').classList.add('hidden');document.getElementById('listPage').classList.remove('hidden');filterDatasets();window.scrollTo(0,0);}
+
+function backToList(){
+  document.getElementById('viewer').classList.add('hidden');
+  document.getElementById('listPage').classList.remove('hidden');
+  filterDatasets();
+  window.scrollTo(0,0);
+}
+
 function filterDatasets(){
   const q=document.getElementById('keyword').value.trim().toLowerCase();
   const cat=document.getElementById('category').value;
   const pref=document.getElementById('prefecture').value;
   const city=document.getElementById('city').value;
   let shown=0;
+
   document.querySelectorAll('.dataset-card').forEach(card=>{
     const hay=card.dataset.search.toLowerCase();
-    const show=(!q||hay.includes(q))&&(!cat||hay.includes(cat))&&(!pref||hay.includes(pref))&&(!city||hay.includes(city));
+    const show=
+      (!q||hay.includes(q)) &&
+      (!cat||hay.includes(cat)) &&
+      (!pref||hay.includes(pref)) &&
+      (!city||hay.includes(city));
+
     card.classList.toggle('hidden',!show);
     if(show) shown++;
   });
+
   document.getElementById('resultCount').textContent=shown+'件の公開情報';
 }
 
-
-const permitItems = ['A-15','A-16','A-17','A-18','A-19','A-20','A-21','A-22','A-23','A-24'];
+const permitItems = [
+  'A-15','A-16','A-17','A-18','A-19',
+  'A-20','A-21','A-22','A-23','A-24'
+];
 
 function renderPermitViewer(){
   const root=document.getElementById('permitCards');
+
   root.innerHTML=permitItems.map(id=>`
     <article class="data-card">
       <h3>整理番号 ${id}</h3>
-      <div class="kv">大津市 盛土規制法・工事許可<br>位置図PDFあり</div>
-      <a class="btn secondary" href="https://www.city.otsu.lg.jp/material/files/group/24/${id}.pdf" target="_blank" rel="noopener" style="margin-top:10px">位置図を見る</a>
+      <div class="kv">
+        大津市 盛土規制法・工事許可<br>
+        位置図PDFあり
+      </div>
+      <a
+        class="btn secondary"
+        href="https://www.city.otsu.lg.jp/material/files/group/24/${id}.pdf"
+        target="_blank"
+        rel="noopener"
+        style="margin-top:10px"
+      >位置図を見る</a>
     </article>
   `).join('');
 }
@@ -206,14 +251,26 @@ function backFromPermitViewer(){
   window.scrollTo(0,0);
 }
 
-
 document.getElementById('openViewer').addEventListener('click',openViewer);
 document.getElementById('backBtn').addEventListener('click',backToList);
 document.getElementById('openPermitViewer').addEventListener('click',openPermitViewer);
 document.getElementById('permitBackBtn').addEventListener('click',backFromPermitViewer);
-document.getElementById('viewerSearch').addEventListener('input',e=>renderViewer(e.target.value));
-['keyword','category','prefecture','city'].forEach(id=>document.getElementById(id).addEventListener(id==='keyword'?'input':'change',filterDatasets));
-loadCSV().catch(e=>{document.getElementById('recordBadge').textContent='件数未取得';document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'</div>';});
+
+document.getElementById('viewerSearch').addEventListener('input',e=>{
+  renderViewer(e.target.value);
+});
+
+['keyword','category','prefecture','city'].forEach(id=>{
+  document.getElementById(id).addEventListener(
+    id==='keyword'?'input':'change',
+    filterDatasets
+  );
+});
+
+loadCSV().catch(e=>{
+  document.getElementById('recordBadge').textContent='件数未取得';
+  document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'</div>';
+});
 </script>
 </body>
 </html>
