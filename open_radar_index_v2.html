@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OPEN RADAR</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#222}header{background:#111;color:#fff;padding:28px 20px}header h1{margin:0 0 8px;font-size:32px;letter-spacing:.5px}header p{margin:0;color:#cfcfcf;font-size:18px}.wrap{max-width:980px;margin:0 auto;padding:28px 16px}.panel,.card{background:#fff;border-radius:20px;box-shadow:0 4px 18px rgba(0,0,0,.08);padding:24px;margin-bottom:22px}.panel h2,.card h2{margin:0 0 18px;font-size:28px}.search{width:100%;padding:16px 18px;border:1px solid #d2d2d2;border-radius:14px;font-size:17px}.filters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}.filters select{width:100%;padding:15px;border:1px solid #d2d2d2;border-radius:14px;font-size:16px;background:#f2f2f2}.meta{color:#666;line-height:1.8}.badges{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.badge{background:#efefef;border-radius:999px;padding:7px 11px;font-size:13px}.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}.btn{display:block;text-align:center;text-decoration:none;border:0;border-radius:14px;padding:15px 14px;font-size:16px;font-weight:700;cursor:pointer;background:#222;color:#fff}.btn.secondary{background:#ededed;color:#222}.btn.outline{background:#fff;color:#222;border:1px solid #bbb}.status{margin-top:14px;color:#666}.hidden{display:none!important}.viewer-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.viewer-tools{display:flex;gap:8px;flex-wrap:wrap}.smallbtn{border:1px solid #bbb;background:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}.count{font-weight:700}.table-wrap{overflow:auto;border:1px solid #ddd;border-radius:14px;margin-top:14px;background:#fff}.data-table{width:100%;border-collapse:collapse;min-width:980px}.data-table th,.data-table td{padding:10px 12px;border-bottom:1px solid #eee;text-align:left;vertical-align:top;font-size:14px}.data-table th{position:sticky;top:0;background:#f3f3f3;z-index:1}.cards{display:none}.data-card{border:1px solid #ddd;border-radius:14px;padding:14px;margin-top:10px;background:#fff}.data-card h3{margin:0 0 8px;font-size:18px}.kv{font-size:14px;line-height:1.7}.warn{background:#fff4d6;border:1px solid #efcc65;border-radius:12px;padding:12px;margin-top:12px}.about{color:#666;line-height:1.8}.loader{display:inline-block;width:16px;height:16px;border:2px solid #ccc;border-top-color:#333;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-3px;margin-right:6px}@keyframes spin{to{transform:rotate(360deg)}}
+    @media(max-width:700px){header h1{font-size:30px}.filters{grid-template-columns:1fr}.actions{grid-template-columns:1fr}.panel,.card{padding:20px}.panel h2,.card h2{font-size:25px}.table-wrap{display:none}.cards{display:block}.viewer-tools{width:100%}.viewer-tools input{width:100%}}
+  </style>
+</head>
+<body>
+<header><h1>OPEN RADAR</h1><p>公開情報を、見つけやすく。</p></header>
+<main class="wrap">
+  <section class="panel" id="listPage">
+    <h2>公開情報を探す</h2>
+    <input id="keyword" class="search" type="search" placeholder="キーワード・施設名・地域など">
+    <div class="filters">
+      <select id="category"><option value="">分野：すべて</option><option value="施設・店舗">施設・店舗</option><option value="建築・開発">建築・開発</option></select>
+      <select id="prefecture"><option value="">都道府県：すべて</option><option value="滋賀県">滋賀県</option></select>
+      <select id="city"><option value="">市町村：すべて</option><option value="大津市">大津市</option></select>
+    </div>
+    <div id="resultCount" class="status">2件の公開情報</div>
+  </section>
+
+  <section class="card dataset-card" data-search="食品営業許可施設一覧 大津市 滋賀県 施設 店舗 食品 営業 許可">
+    <h2>食品営業許可施設一覧</h2>
+    <div class="meta">滋賀県 大津市 / 公開元：大津市</div>
+    <div class="badges"><span class="badge">CSV</span><span class="badge">2026年7月末時点</span><span class="badge" id="recordBadge">件数を確認中</span></div>
+    <p class="meta">施設名、所在地、業種、許可期間などを確認できます。OPEN RADAR内では文字化け・列崩れを確認したうえで表示します。</p>
+    <div class="actions">
+      <button class="btn" id="openViewer">中身を見る</button>
+      <a class="btn secondary" href="./od_2607.csv" target="_blank" rel="noopener">元データ（CSV）</a>
+      <a class="btn outline" href="https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html" target="_blank" rel="noopener">公式公開ページ</a>
+    </div>
+    <div id="qualityStatus" class="status"></div>
+  </section>
+
+  <section class="card hidden" id="viewer">
+    <div class="viewer-head">
+      <div><button class="smallbtn" id="backBtn">← 一覧に戻る</button><h2 style="margin-top:16px">食品営業許可施設一覧</h2><div class="meta" id="asOf"></div></div>
+      <div class="viewer-tools"><input id="viewerSearch" class="search" style="min-width:280px" type="search" placeholder="施設名・住所・業種で検索"></div>
+    </div>
+    <div class="status"><span id="viewerCount" class="count"></span></div>
+    <div id="viewerMessage"></div>
+    <div class="table-wrap"><table class="data-table"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+    <div id="cards" class="cards"></div>
+  </section>
+
+
+  <section class="card dataset-card" data-search="盛土規制法 工事許可 宅地造成 特定盛土 開発 建築 大津市 滋賀県 A-15 A-16 A-17 A-18 A-19 A-20 A-21 A-22 A-23 A-24">
+    <h2>盛土規制法 工事許可（令和8年度）</h2>
+    <div class="meta">滋賀県 大津市 / 公開元：大津市 都市計画部 開発調整課</div>
+    <div class="badges"><span class="badge">PDF</span><span class="badge">2026年8月5日現在</span><span class="badge">位置図10件</span></div>
+    <p class="meta">宅地造成・特定盛土等に関する工事許可の公表です。A-15〜A-24の位置図をOPEN RADARから直接確認できます。</p>
+    <div class="actions">
+      <button class="btn" id="openPermitViewer">中身を見る</button>
+      <a class="btn secondary" href="https://www.city.otsu.lg.jp/material/files/group/24/20260805R8.pdf" target="_blank" rel="noopener">元資料（PDF）</a>
+      <a class="btn outline" href="https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html" target="_blank" rel="noopener">公式公開ページ</a>
+    </div>
+    <div class="status">公式ページ更新：2026年8月7日 / 公表資料：2026年8月5日現在</div>
+  </section>
+
+  <section class="card hidden" id="permitViewer">
+    <div class="viewer-head">
+      <div>
+        <button class="smallbtn" id="permitBackBtn">← 一覧に戻る</button>
+        <h2 style="margin-top:16px">盛土規制法 工事許可（令和8年度）</h2>
+        <div class="meta">大津市 / 2026年8月5日現在 / A-15〜A-24</div>
+      </div>
+    </div>
+    <div class="warn">整理番号ごとの位置図を直接開けます。工事主・施工者・所在地・規模などの正式な内容は「元資料（PDF）」で必ず確認してください。</div>
+    <div id="permitCards" class="cards" style="display:block"></div>
+    <div class="actions" style="margin-top:18px">
+      <a class="btn secondary" href="https://www.city.otsu.lg.jp/material/files/group/24/20260805R8.pdf" target="_blank" rel="noopener">元資料（PDF）</a>
+      <a class="btn outline" href="https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html" target="_blank" rel="noopener">公式公開ページ</a>
+    </div>
+  </section>
+
+  <section class="card about"><h2>OPEN RADARについて</h2><p>国・自治体等が公開している情報を、公開元の利用条件を確認したうえで探しやすく整理するためのサイトです。</p><p>OPEN RADAR内の表示は利便性のための整理表示です。最終確認は必ず公開元の公式情報をご確認ください。</p></section>
+</main>
+<script>
+const CSV_PATH = './od_2607.csv';
+let rows = [];
+let headers = [];
+let asOfText = '';
+
+function parseCSV(text){
+  const out=[]; let row=[]; let field=''; let inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(inQuotes){
+      if(c==='"' && text[i+1]==='"'){field+='"';i++;}
+      else if(c==='"'){inQuotes=false;}
+      else field+=c;
+    }else{
+      if(c==='"') inQuotes=true;
+      else if(c===','){row.push(field);field='';}
+      else if(c==='\n'){row.push(field);out.push(row);row=[];field='';}
+      else if(c!=='\r') field+=c;
+    }
+  }
+  if(field.length||row.length){row.push(field);out.push(row);}
+  return out;
+}
+
+function decodeBest(buffer){
+  const utf8 = new TextDecoder('utf-8').decode(buffer);
+  const badUtf8 = (utf8.match(/�/g)||[]).length;
+  if(badUtf8===0) return {text:utf8, encoding:'UTF-8'};
+  try{
+    const sjis = new TextDecoder('shift_jis').decode(buffer);
+    const badSjis = (sjis.match(/�/g)||[]).length;
+    if(badSjis < badUtf8) return {text:sjis, encoding:'Shift_JIS'};
+  }catch(e){}
+  return {text:utf8, encoding:'UTF-8'};
+}
+
+function cleanCell(v){return String(v??'').replace(/^\uFEFF/,'').trim();}
+
+async function loadCSV(){
+  if(rows.length) return;
+  const quality=document.getElementById('qualityStatus');
+  quality.innerHTML='<span class="loader"></span>データを確認中…';
+  const res=await fetch(CSV_PATH,{cache:'no-store'});
+  if(!res.ok) throw new Error('CSV取得エラー HTTP '+res.status);
+  const buffer=await res.arrayBuffer();
+  const decoded=decodeBest(buffer);
+  const parsed=parseCSV(decoded.text);
+  if(parsed.length<3) throw new Error('CSVの行数が不足しています');
+  asOfText=cleanCell(parsed[0][0]);
+  headers=parsed[1].map(cleanCell);
+  rows=parsed.slice(2).filter(r=>r.some(v=>cleanCell(v)!=='')).map(r=>{
+    const obj={}; headers.forEach((h,i)=>obj[h]=cleanCell(r[i])); return obj;
+  });
+  const required=['許可番号','申請者名','施設名','施設所在地','業種'];
+  const missing=required.filter(h=>!headers.includes(h));
+  if(missing.length) throw new Error('必要な列が見つかりません: '+missing.join('、'));
+  const replacementCount=(decoded.text.match(/�/g)||[]).length;
+  if(replacementCount>0) throw new Error('文字化けの可能性を検出したため表示を停止しました');
+  document.getElementById('recordBadge').textContent=rows.length.toLocaleString('ja-JP')+'件';
+  quality.textContent='表示確認済み：'+decoded.encoding+' / '+rows.length.toLocaleString('ja-JP')+'件';
+}
+
+function renderViewer(filter=''){
+  const q=filter.trim().toLowerCase();
+  const filtered=!q?rows:rows.filter(r=>Object.values(r).join(' ').toLowerCase().includes(q));
+  document.getElementById('viewerCount').textContent=filtered.length.toLocaleString('ja-JP')+'件表示';
+  document.getElementById('asOf').textContent=asOfText+' / 公開元：大津市';
+  const shownHeaders=['施設名','施設所在地','業種','申請者名','許可番号','許可開始年月日','許可満了年月日','条件'].filter(h=>headers.includes(h));
+  document.getElementById('thead').innerHTML='<tr>'+shownHeaders.map(h=>'<th>'+escapeHTML(h)+'</th>').join('')+'</tr>';
+  document.getElementById('tbody').innerHTML=filtered.slice(0,1000).map(r=>'<tr>'+shownHeaders.map(h=>'<td>'+escapeHTML(r[h])+'</td>').join('')+'</tr>').join('');
+  document.getElementById('cards').innerHTML=filtered.slice(0,500).map(r=>`<article class="data-card"><h3>${escapeHTML(r['施設名']||'名称未設定')}</h3><div class="kv"><b>所在地：</b>${escapeHTML(r['施設所在地']||'')}<br><b>業種：</b>${escapeHTML(r['業種']||'')}<br><b>申請者：</b>${escapeHTML(r['申請者名']||'')}<br><b>許可期間：</b>${escapeHTML(r['許可開始年月日']||'')} ～ ${escapeHTML(r['許可満了年月日']||'')}${r['条件']?'<br><b>条件：</b>'+escapeHTML(r['条件']):''}</div></article>`).join('');
+  const msg=document.getElementById('viewerMessage');
+  msg.innerHTML=filtered.length>1000?'<div class="warn">PC表は先頭1,000件、スマホ表示は先頭500件まで表示しています。検索で絞り込んでください。</div>':'';
+}
+function escapeHTML(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
+
+async function openViewer(){
+  const viewer=document.getElementById('viewer'); const list=document.getElementById('listPage');
+  try{await loadCSV();renderViewer();list.classList.add('hidden');document.querySelectorAll('.dataset-card').forEach(c=>c.classList.add('hidden'));viewer.classList.remove('hidden');window.scrollTo(0,0);}catch(e){document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'。元データまたは公式公開ページから確認してください。</div>';}
+}
+function backToList(){document.getElementById('viewer').classList.add('hidden');document.getElementById('listPage').classList.remove('hidden');filterDatasets();window.scrollTo(0,0);}
+function filterDatasets(){
+  const q=document.getElementById('keyword').value.trim().toLowerCase();
+  const cat=document.getElementById('category').value;
+  const pref=document.getElementById('prefecture').value;
+  const city=document.getElementById('city').value;
+  let shown=0;
+  document.querySelectorAll('.dataset-card').forEach(card=>{
+    const hay=card.dataset.search.toLowerCase();
+    const show=(!q||hay.includes(q))&&(!cat||hay.includes(cat))&&(!pref||hay.includes(pref))&&(!city||hay.includes(city));
+    card.classList.toggle('hidden',!show);
+    if(show) shown++;
+  });
+  document.getElementById('resultCount').textContent=shown+'件の公開情報';
+}
+
+
+const permitItems = ['A-15','A-16','A-17','A-18','A-19','A-20','A-21','A-22','A-23','A-24'];
+
+function renderPermitViewer(){
+  const root=document.getElementById('permitCards');
+  root.innerHTML=permitItems.map(id=>`
+    <article class="data-card">
+      <h3>整理番号 ${id}</h3>
+      <div class="kv">大津市 盛土規制法・工事許可<br>位置図PDFあり</div>
+      <a class="btn secondary" href="https://www.city.otsu.lg.jp/material/files/group/24/${id}.pdf" target="_blank" rel="noopener" style="margin-top:10px">位置図を見る</a>
+    </article>
+  `).join('');
+}
+
+function openPermitViewer(){
+  document.getElementById('listPage').classList.add('hidden');
+  document.querySelectorAll('.dataset-card').forEach(c=>c.classList.add('hidden'));
+  document.getElementById('viewer').classList.add('hidden');
+  renderPermitViewer();
+  document.getElementById('permitViewer').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function backFromPermitViewer(){
+  document.getElementById('permitViewer').classList.add('hidden');
+  document.getElementById('listPage').classList.remove('hidden');
+  filterDatasets();
+  window.scrollTo(0,0);
+}
+
+
+document.getElementById('openViewer').addEventListener('click',openViewer);
+document.getElementById('backBtn').addEventListener('click',backToList);
+document.getElementById('openPermitViewer').addEventListener('click',openPermitViewer);
+document.getElementById('permitBackBtn').addEventListener('click',backFromPermitViewer);
+document.getElementById('viewerSearch').addEventListener('input',e=>renderViewer(e.target.value));
+['keyword','category','prefecture','city'].forEach(id=>document.getElementById(id).addEventListener(id==='keyword'?'input':'change',filterDatasets));
+loadCSV().catch(e=>{document.getElementById('recordBadge').textContent='件数未取得';document.getElementById('qualityStatus').innerHTML='<div class="warn">'+escapeHTML(e.message)+'</div>';});
+</script>
+</body>
+</html>
