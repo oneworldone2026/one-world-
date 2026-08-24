@@ -1,0 +1,132 @@
+{
+  "version": 5,
+  "updated": "2026-08-24",
+  "datasets": [
+    {
+      "id": "otsu-food-license",
+      "title": "食品営業許可施設一覧",
+      "category": "施設・店舗",
+      "prefecture": "滋賀県",
+      "city": "大津市",
+      "publisher": "大津市",
+      "format": "CSV",
+      "data_as_of": "2026年7月末時点",
+      "description": "施設名、所在地、業種、許可期間などを確認できます。OPEN RADAR内では文字化け・列崩れを確認したうえで表示します。",
+      "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
+      "file_url": "./od_2607.csv",
+      "viewer": {
+        "type": "csv_table",
+        "path": "./od_2607.csv",
+        "as_of_row": 0,
+        "header_row": 1,
+        "data_start_row": 2,
+        "required_columns": [
+          "許可番号",
+          "申請者名",
+          "施設名",
+          "施設所在地",
+          "業種"
+        ],
+        "display_columns": [
+          "施設名",
+          "施設所在地",
+          "業種",
+          "申請者名",
+          "許可番号",
+          "許可開始年月日",
+          "許可満了年月日",
+          "条件"
+        ],
+        "search_placeholder": "施設名・住所・業種で検索",
+        "industry_column": "業種",
+        "start_date_column": "許可開始年月日",
+        "expire_date_column": "許可満了年月日"
+      },
+      "search_terms": [
+        "食品",
+        "営業",
+        "許可",
+        "施設",
+        "店舗"
+      ]
+    },
+    {
+      "id": "otsu-fill-permit-r8",
+      "title": "盛土規制法 工事許可（令和8年度）",
+      "category": "建築・開発",
+      "prefecture": "滋賀県",
+      "city": "大津市",
+      "publisher": "大津市 都市計画部 開発調整課",
+      "format": "PDF",
+      "data_as_of": "2026年8月5日現在",
+      "published": "2026-08-07",
+      "description": "宅地造成・特定盛土等に関する工事許可の公表です。整理番号ごとの位置図と元資料を確認できます。",
+      "source_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html",
+      "file_url": "https://www.city.otsu.lg.jp/material/files/group/24/20260805R8.pdf",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "位置図PDFを直接開けます。工事主・施工者・所在地・規模などの正式な内容は元資料（PDF）で確認してください。",
+        "items": [
+          {
+            "label": "整理番号 A-15",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-15.pdf"
+          },
+          {
+            "label": "整理番号 A-16",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-16.pdf"
+          },
+          {
+            "label": "整理番号 A-17",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-17.pdf"
+          },
+          {
+            "label": "整理番号 A-18",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-18.pdf"
+          },
+          {
+            "label": "整理番号 A-19",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-19.pdf"
+          },
+          {
+            "label": "整理番号 A-20",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-20.pdf"
+          },
+          {
+            "label": "整理番号 A-21",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-21.pdf"
+          },
+          {
+            "label": "整理番号 A-22",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-22.pdf"
+          },
+          {
+            "label": "整理番号 A-23",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-23.pdf"
+          },
+          {
+            "label": "整理番号 A-24",
+            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
+            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-24.pdf"
+          }
+        ]
+      },
+      "search_terms": [
+        "盛土",
+        "工事許可",
+        "宅地造成",
+        "特定盛土",
+        "開発",
+        "建築"
+      ]
+    }
+  ]
+}
