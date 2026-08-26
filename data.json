@@ -1,5 +1,5 @@
 {
-  "version": "5.1",
+  "version": "5.2",
   "updated": "2026-08-27",
   "datasets": [
     {
@@ -340,6 +340,97 @@
         "watch_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html",
         "item_key_pattern": "E-* / F-*",
         "planned_behavior": "公式ページの更新日・整理番号・原本PDF変更を差分検出して反映",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-large-retail-r8",
+      "title": "滋賀県 大規模小売店舗 新設・変更届出",
+      "category": "店舗・開業",
+      "prefecture": "滋賀県",
+      "city": "県内各市町",
+      "publisher": "滋賀県 商工労働部 中小企業支援課",
+      "format": "HTML / PDF",
+      "data_as_of": "滋賀県ページ 2026年6月9日公表分",
+      "description": "大規模小売店舗立地法に基づく新設・変更届出。現在の県公式ページ掲載9案件を整理。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "新設4件・変更5件の計9件。正式な所在地、設置者、店舗面積、新設予定日、変更内容等は滋賀県の公告・届出資料で確認してください。",
+        "items": [
+          {
+            "label": "ドラッグコスモス長浜平方店",
+            "summary": "新設｜長浜市｜届出日 2026-04-15｜縦覧・意見受付期限 2026-09-08",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "ドラッグコスモス堅田駅前店",
+            "summary": "新設｜大津市｜届出日 2026-03-05｜縦覧・意見受付期限 2026-07-27",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "クロスモール近江八幡",
+            "summary": "新設｜近江八幡市｜届出日 2026-01-21｜縦覧・意見受付期限 2026-06-03",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "スーパーセンタートライアル愛知川店",
+            "summary": "新設｜愛荘町｜届出日 2026-01-09｜縦覧・意見受付期限 2026-05-25",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "ドラッグコスモス彦根駅東店",
+            "summary": "変更（法6条2項）｜彦根市｜届出日 2026-03-06｜縦覧・意見受付期限 2026-07-27",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "マツヤスーパー大津美崎店",
+            "summary": "変更（法6条2項）｜大津市｜届出日 2026-01-21｜縦覧・意見受付期限 2026-06-03",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "ベルロード複合商業施設",
+            "summary": "変更（法6条2項）｜彦根市｜届出日 2025-12-17｜縦覧・意見受付期限 2026-05-13",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "（仮称）カネスエ近江八幡店",
+            "summary": "変更（附則5条1項）｜近江八幡市｜届出日 2026-05-18｜縦覧・意見受付期限 2026-10-05",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          },
+          {
+            "label": "スポーツデポ栗東店",
+            "summary": "変更（附則5条1項）｜栗東市｜届出日 2026-04-17｜縦覧・意見受付期限 2026-09-08",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "大規模小売店舗",
+        "新設",
+        "変更",
+        "開業",
+        "店舗",
+        "商業施設",
+        "ドラッグストア",
+        "スーパー"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表",
+        "source_checked": "2026-08-27",
+        "commercial_use_review": "公式公表事実を整理し、原本の丸ごと転載は避けて公式資料へ誘導",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "営業目的でも必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "official_page_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html",
+        "item_key_pattern": "届出区分 + 店舗名 + 届出日",
+        "planned_behavior": "公式一覧を定期確認し、新規案件・変更・期限・公告PDFリンクを差分検出",
         "status": "設計済み・未自動化"
       }
     }
