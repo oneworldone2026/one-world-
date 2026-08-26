@@ -1,6 +1,6 @@
 {
-  "version": 5,
-  "updated": "2026-08-24",
+  "version": "5.1",
+  "updated": "2026-08-27",
   "datasets": [
     {
       "id": "otsu-food-license",
@@ -11,7 +11,7 @@
       "publisher": "大津市",
       "format": "CSV",
       "data_as_of": "2026年7月末時点",
-      "description": "施設名、所在地、業種、許可期間などを確認できます。OPEN RADAR内では文字化け・列崩れを確認したうえで表示します。",
+      "description": "施設名、所在地、業種、許可期間などを確認できます。",
       "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
       "file_url": "./od_2607.csv",
       "viewer": {
@@ -48,7 +48,12 @@
         "許可",
         "施設",
         "店舗"
-      ]
+      ],
+      "compliance": {
+        "source_type": "official_public_information",
+        "attribution_required": true,
+        "final_verification": "公式公開元で確認"
+      }
     },
     {
       "id": "otsu-fill-permit-r8",
@@ -59,63 +64,62 @@
       "publisher": "大津市 都市計画部 開発調整課",
       "format": "PDF",
       "data_as_of": "2026年8月5日現在",
-      "published": "2026-08-07",
-      "description": "宅地造成・特定盛土等に関する工事許可の公表です。整理番号ごとの位置図と元資料を確認できます。",
+      "description": "宅地造成・特定盛土等に関する工事許可の公表です。",
       "source_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html",
       "file_url": "https://www.city.otsu.lg.jp/material/files/group/24/20260805R8.pdf",
       "viewer": {
         "type": "link_collection",
-        "notice": "位置図PDFを直接開けます。工事主・施工者・所在地・規模などの正式な内容は元資料（PDF）で確認してください。",
+        "notice": "正式な内容は元資料で確認してください。",
         "items": [
           {
             "label": "整理番号 A-15",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-15.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-16",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-16.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-17",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-17.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-18",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-18.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-19",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-19.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-20",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-20.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-21",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-21.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-22",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-22.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-23",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-23.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           },
           {
             "label": "整理番号 A-24",
-            "summary": "大津市 盛土規制法・工事許可 / 位置図PDF",
-            "url": "https://www.city.otsu.lg.jp/material/files/group/24/A-24.pdf"
+            "summary": "大津市 盛土規制法・工事許可",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
           }
         ]
       },
@@ -126,7 +130,218 @@
         "特定盛土",
         "開発",
         "建築"
-      ]
+      ],
+      "compliance": {
+        "source_type": "official_public_information",
+        "attribution_required": true,
+        "final_verification": "公式公開元で確認"
+      }
+    },
+    {
+      "id": "otsu-fill-notification-r7",
+      "title": "盛土規制法 工事届出（令和7年度）",
+      "category": "建築・開発",
+      "prefecture": "滋賀県",
+      "city": "大津市",
+      "publisher": "大津市 都市計画部 開発調整課",
+      "format": "PDF / 公式公表",
+      "data_as_of": "大津市ページ更新 2026年5月14日",
+      "description": "大津市が公表する盛土規制法の工事届出。E-1～E-28、F-1～F-4の計32件。",
+      "source_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html",
+      "file_url": "https://www.city.otsu.lg.jp/material/files/group/24/20250806-2.pdf",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "32件を整理表示しています。正式な工事内容・当事者・所在地・日程・規模等は大津市の原本で確認してください。",
+        "items": [
+          {
+            "label": "E-1",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-2",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-3",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-4",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-5",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-6",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-7",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-8",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-9",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-10",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-11",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-12",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-13",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-14",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-15",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-16",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-17",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-18",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-19",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-20",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-21",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-22",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-23",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-24",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-25",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-26",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-27",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "E-28",
+            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "F-1",
+            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "F-2",
+            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "F-3",
+            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          },
+          {
+            "label": "F-4",
+            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
+            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "盛土",
+        "工事届出",
+        "宅地造成",
+        "特定盛土",
+        "土石の堆積",
+        "開発",
+        "着工",
+        "工事"
+      ],
+      "compliance": {
+        "source_type": "大津市公式公表",
+        "source_checked": "2026-08-27",
+        "commercial_use_review": "原本の丸ごと転載を避け、公開事実の整理と公式原本への誘導を基本とする",
+        "attribution_required": true,
+        "attribution": "出典：大津市",
+        "personal_data_policy": "必要以上の人物プロフィール化・再利用は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "official_page_diff",
+        "watch_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html",
+        "item_key_pattern": "E-* / F-*",
+        "planned_behavior": "公式ページの更新日・整理番号・原本PDF変更を差分検出して反映",
+        "status": "設計済み・未自動化"
+      }
     }
   ]
 }
