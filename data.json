@@ -1,5 +1,5 @@
 {
-  "version": "5.2",
+  "version": "5.3",
   "updated": "2026-08-27",
   "datasets": [
     {
@@ -431,6 +431,87 @@
         "watch_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html",
         "item_key_pattern": "届出区分 + 店舗名 + 届出日",
         "planned_behavior": "公式一覧を定期確認し、新規案件・変更・期限・公告PDFリンクを差分検出",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-large-retail-preconsultation",
+      "title": "滋賀県 大規模小売店舗 事前届出",
+      "category": "店舗・開業",
+      "prefecture": "滋賀県",
+      "city": "県内各市町",
+      "publisher": "滋賀県 商工労働部 中小企業支援課",
+      "format": "HTML / PDF",
+      "data_as_of": "滋賀県公式ページ 2026年4月1日更新",
+      "description": "大規模小売店舗立地法の正式届出より早い段階で行われる事前協議。公式ページ掲載7案件を整理。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "現在、意見受付期間中の案件は0件。過去7案件を参考表示。新設は店舗面積10,000㎡以上、変更は10,000㎡以上の増床が対象。正式内容・図面等は滋賀県公式原本で確認してください。",
+        "items": [
+          {
+            "label": "（仮称）滋賀県大津市今堅田新築計画",
+            "summary": "大津市｜事前届出受付 2024-07-22｜事前説明会 2024-07-31｜意見受付期限 2024-08-21｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "（仮称）コストコ滋賀倉庫店",
+            "summary": "東近江市中小路町｜事前届出受付 2023-03-20｜事前説明会 2023-04-08｜意見受付期限 2023-05-01｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "（仮称）大津びわこ競輪場跡地商業施設",
+            "summary": "大津市二本松｜事前届出受付 2018-07-12｜事前説明会 2018-07-31｜意見受付期限 2018-08-21｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "（仮称）コメリパワー栗東店",
+            "summary": "栗東市上鈎・下鈎｜事前届出受付 2017-11-24｜事前説明会 2017-12-14｜意見受付期限 2018-01-04｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "イオンタウン湖南店",
+            "summary": "湖南市岩根｜事前届出受付 2013-12-27｜事前説明会 2014-01-17｜意見受付期限 2014-02-07｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "コメリパワー水口店開発事業",
+            "summary": "甲賀市水口町｜事前届出受付 2013-01-21｜事前説明会 2013-02-05｜意見受付期限 2013-02-26｜市町等意見あり／県意見なし",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          },
+          {
+            "label": "イオンタウン彦根",
+            "summary": "彦根市里根町｜事前届出受付 2012-10-16｜事前説明会 2012-11-08｜意見受付期限 2012-11-29｜市町等意見あり／県意見あり",
+            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "大規模小売店舗",
+        "事前届出",
+        "事前協議",
+        "新設",
+        "開業",
+        "着工前",
+        "大型店",
+        "店舗"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表",
+        "source_checked": "2026-08-27",
+        "commercial_use_review": "公開事実を整理し、届出書・図面等の原本は滋賀県公式へ誘導。原本をOPEN RADAR側で再配布しない",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "official_page_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
+        "item_key_pattern": "店舗名称 + 事前届出書受付日",
+        "planned_behavior": "「意見受付期間中の案件」と届出状況表を定期確認し、新規案件・日付・資料リンクの差分を検出",
         "status": "設計済み・未自動化"
       }
     }
