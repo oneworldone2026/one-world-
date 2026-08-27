@@ -1,5 +1,5 @@
 {
-  "version": "5.3",
+  "version": "5.4",
   "updated": "2026-08-27",
   "datasets": [
     {
@@ -512,6 +512,63 @@
         "watch_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
         "item_key_pattern": "店舗名称 + 事前届出書受付日",
         "planned_behavior": "「意見受付期間中の案件」と届出状況表を定期確認し、新規案件・日付・資料リンクの差分を検出",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-care-new",
+      "title": "滋賀県 新規介護サービス事業所",
+      "category": "介護・福祉",
+      "prefecture": "滋賀県",
+      "city": "県内各市町",
+      "publisher": "滋賀県 健康医療福祉部",
+      "format": "Excel / PDF / 公式公表",
+      "data_as_of": "介護サービス事業所一覧 2026年8月1日現在",
+      "description": "滋賀県内の介護サービス事業所マスターと新規指定事業所の公式公表を基に、新規開設候補を把握するためのデータセット。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/15710.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "現在は公式マスターと新規事業所公表ページへの導線を掲載。今後は月次Excelの差分から新規事業所を自動抽出してNEW表示する設計です。大津市所管・市町所管サービスは指定元を区別して扱います。",
+        "items": [
+          {
+            "label": "滋賀県内の介護サービス事業所一覧（2026年8月1日現在）",
+            "summary": "県公式Excel。月次差分による新規事業所検出の基準マスターとして使用。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html"
+          },
+          {
+            "label": "令和7年度 公表対象新規事業所",
+            "summary": "2025年4月～2026年3月の新規指定事業所が公表対象。公式ページでは2025年4月～11月分の新規事業所一覧PDFを掲載。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/15710.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "介護",
+        "新規事業所",
+        "新規指定",
+        "訪問介護",
+        "訪問看護",
+        "通所介護",
+        "デイサービス",
+        "福祉"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表・オープンデータ",
+        "source_checked": "2026-08-27",
+        "commercial_use_review": "公式オープンデータ・公表情報を整理し、詳細は公式原本へ誘導",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "営業候補抽出では事業所情報を中心とし、必要以上の個人情報集約は行わない",
+        "jurisdiction_note": "大津市内の指定居宅サービス等は大津市所管。地域密着型サービス・居宅介護支援等は市町所管のため指定元を区別する。",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "monthly_excel_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html",
+        "item_key_pattern": "事業所番号を優先。補助キーとして事業所名＋所在地＋サービス種類",
+        "planned_behavior": "当月Excelと前月保存データを比較し、新規追加事業所をNEW候補として抽出。廃止・名称変更・移転は別ステータスで判定。",
         "status": "設計済み・未自動化"
       }
     }
