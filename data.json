@@ -1,6 +1,6 @@
 {
-  "version": "5.4",
-  "updated": "2026-08-27",
+  "version": "5.5",
+  "updated": "2026-08-31",
   "datasets": [
     {
       "id": "otsu-food-license",
@@ -569,6 +569,206 @@
         "watch_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html",
         "item_key_pattern": "事業所番号を優先。補助キーとして事業所名＋所在地＋サービス種類",
         "planned_behavior": "当月Excelと前月保存データを比較し、新規追加事業所をNEW候補として抽出。廃止・名称変更・移転は別ステータスで判定。",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-disability-welfare",
+      "title": "滋賀県 障害福祉サービス事業所等一覧",
+      "category": "介護・福祉",
+      "prefecture": "滋賀県",
+      "city": "県内各市町（県所管分）",
+      "publisher": "滋賀県 健康医療福祉部 障害福祉課",
+      "format": "Excel / 公式公表",
+      "data_as_of": "令和8年度公表情報",
+      "description": "障害福祉サービス事業所等の公式公表を確認する基礎データ。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "指定権限・所管が県と市町で異なる場合があります。正式な指定状況は公式公開元で確認してください。",
+        "items": [
+          {
+            "label": "滋賀県 障害福祉サービス事業所等一覧 公式資料",
+            "summary": "滋賀県公式公開元で最新内容を確認できます。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/"
+          }
+        ]
+      },
+      "search_terms": [
+        "障害福祉",
+        "グループホーム",
+        "共同生活援助",
+        "就労支援",
+        "生活介護",
+        "障害児"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表・オープンデータ",
+        "source_checked": "2026-08-31",
+        "commercial_use_review": "公開情報を整理し、利用規約を守って公式原本へ誘導。原本の丸ごと再配布は行わない。",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "施設・事業所情報を中心とし、必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "periodic_excel_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/",
+        "item_key_pattern": "事業所番号を優先。補助キー：事業所名＋所在地＋サービス種類",
+        "planned_behavior": "前回保存データと最新公式データを比較し、新規・廃止・名称変更・移転等の差分候補を検出",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-life-hygiene",
+      "title": "滋賀県 生活衛生営業施設一覧",
+      "category": "施設・店舗",
+      "prefecture": "滋賀県",
+      "city": "県内各市町",
+      "publisher": "滋賀県 健康医療福祉部 生活衛生課",
+      "format": "PDF / オープンデータ",
+      "data_as_of": "2026年7月末現在",
+      "description": "理容、美容、クリーニング、興行場、旅館、公衆浴場、温泉、プール、ビルメンの9分野。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "前月末現在の全届出・全許可施設一覧。月次差分によるNEW候補検出に向くデータです。",
+        "items": [
+          {
+            "label": "滋賀県 生活衛生営業施設一覧 公式資料",
+            "summary": "滋賀県公式公開元で最新内容を確認できます。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "理容",
+        "美容",
+        "クリーニング",
+        "旅館",
+        "ホテル",
+        "興行場",
+        "公衆浴場",
+        "温泉",
+        "プール",
+        "ビルメンテナンス"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表・オープンデータ",
+        "source_checked": "2026-08-31",
+        "commercial_use_review": "公開情報を整理し、利用規約を守って公式原本へ誘導。原本の丸ごと再配布は行わない。",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "施設・事業所情報を中心とし、必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "monthly_pdf_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
+        "item_key_pattern": "施設種別＋施設名＋所在地",
+        "planned_behavior": "前回保存データと最新公式データを比較し、新規・廃止・名称変更・移転等の差分候補を検出",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-medical-institutions",
+      "title": "滋賀県 医療機関等一覧",
+      "category": "医療",
+      "prefecture": "滋賀県",
+      "city": "県内各市町",
+      "publisher": "滋賀県 健康医療福祉部 医療政策課",
+      "format": "Excel / オープンデータ",
+      "data_as_of": "病院・一般診療所・歯科診療所 2026年7月1日現在",
+      "description": "病院、一般診療所、歯科診療所の公式一覧。一般・歯科は大津市分を含まない。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "一般診療所・歯科診療所は大津市分を含みません。今後、前回Excelとの差分から新設・変更候補を検出します。",
+        "items": [
+          {
+            "label": "滋賀県 医療機関等一覧 公式資料",
+            "summary": "滋賀県公式公開元で最新内容を確認できます。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "病院",
+        "診療所",
+        "クリニック",
+        "歯科",
+        "医療機関",
+        "新規開設"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表・オープンデータ",
+        "source_checked": "2026-08-31",
+        "commercial_use_review": "公開情報を整理し、利用規約を守って公式原本へ誘導。原本の丸ごと再配布は行わない。",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "施設・事業所情報を中心とし、必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "periodic_excel_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
+        "item_key_pattern": "医療機関種別＋施設名＋所在地",
+        "planned_behavior": "前回保存データと最新公式データを比較し、新規・廃止・名称変更・移転等の差分候補を検出",
+        "status": "設計済み・未自動化"
+      }
+    },
+    {
+      "id": "shiga-food-license",
+      "title": "滋賀県 食品営業許可施設一覧",
+      "category": "施設・店舗",
+      "prefecture": "滋賀県",
+      "city": "県内各市町（県所管分）",
+      "publisher": "滋賀県 健康医療福祉部 生活衛生課 食の安全推進室",
+      "format": "CSV / オープンデータ",
+      "data_as_of": "2026年7月31日現在",
+      "description": "滋賀県が公開する食品営業許可施設一覧。大津市版とは別の県所管データとして扱う。",
+      "source_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
+      "file_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
+      "viewer": {
+        "type": "link_collection",
+        "notice": "県公式CSVを基礎データとして扱い、今後は前回CSVとの差分から新規許可候補を検出します。",
+        "items": [
+          {
+            "label": "滋賀県 食品営業許可施設一覧 公式資料",
+            "summary": "滋賀県公式公開元で最新内容を確認できます。",
+            "url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html"
+          }
+        ]
+      },
+      "search_terms": [
+        "食品",
+        "営業許可",
+        "飲食店",
+        "店舗",
+        "新規許可",
+        "飲食"
+      ],
+      "compliance": {
+        "source_type": "滋賀県公式公表・オープンデータ",
+        "source_checked": "2026-08-31",
+        "commercial_use_review": "公開情報を整理し、利用規約を守って公式原本へ誘導。原本の丸ごと再配布は行わない。",
+        "attribution_required": true,
+        "attribution": "出典：滋賀県",
+        "personal_data_policy": "施設・事業所情報を中心とし、必要以上の個人情報集約は行わない",
+        "final_verification": "公式公開元で確認"
+      },
+      "automation": {
+        "enabled": false,
+        "strategy": "monthly_csv_diff",
+        "watch_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
+        "item_key_pattern": "許可番号を優先。補助キー：施設名＋所在地＋業種",
+        "planned_behavior": "前回保存データと最新公式データを比較し、新規・廃止・名称変更・移転等の差分候補を検出",
         "status": "設計済み・未自動化"
       }
     }
