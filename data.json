@@ -1,5 +1,5 @@
 {
-  "version": "5.6.2",
+  "version": "5.7.0",
   "updated": "2026-08-31",
   "datasets": [
     {
@@ -623,26 +623,42 @@
     },
     {
       "id": "shiga-life-hygiene",
-      "title": "滋賀県 生活衛生営業施設一覧",
+      "title": "滋賀県 生活衛生営業施設一覧（大津市除く）",
       "category": "施設・店舗",
       "prefecture": "滋賀県",
-      "city": "県内各市町",
+      "city": "県内各市町（大津市除く）",
       "publisher": "滋賀県 健康医療福祉部 生活衛生課",
-      "format": "PDF / オープンデータ",
+      "format": "CSV / オープンデータ加工",
       "data_as_of": "2026年7月末現在",
-      "description": "理容、美容、クリーニング、興行場、旅館、公衆浴場、温泉、プール、ビルメンの9分野。",
+      "description": "滋賀県公表の生活衛生営業施設9分野を検索しやすいCSVに整理。理容、美容、クリーニング、興行場、旅館、公衆浴場、温泉、プール、ビルメンテナンスの計5,729件。",
       "source_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
-      "file_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
+      "file_url": "./shiga_life_hygiene_20260731.csv",
       "viewer": {
-        "type": "link_collection",
-        "notice": "前月末現在の全届出・全許可施設一覧。月次差分によるNEW候補検出に向くデータです。",
-        "items": [
-          {
-            "label": "滋賀県 生活衛生営業施設一覧 公式資料",
-            "summary": "滋賀県公式公開元で最新内容を確認できます。",
-            "url": "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html"
-          }
-        ]
+        "type": "csv_table",
+        "path": "./shiga_life_hygiene_20260731.csv",
+        "header_row": 0,
+        "data_start_row": 1,
+        "required_columns": [
+          "カテゴリ",
+          "施設名",
+          "住所",
+          "保健所"
+        ],
+        "display_columns": [
+          "カテゴリ",
+          "施設名",
+          "住所",
+          "電話番号",
+          "営業者氏名",
+          "確認・許可年月日",
+          "種別",
+          "登録期限",
+          "保健所"
+        ],
+        "search_placeholder": "施設名・住所・カテゴリ・営業者名で検索",
+        "industry_column": "カテゴリ",
+        "start_date_column": "確認・許可年月日",
+        "expire_date_column": "登録期限"
       },
       "search_terms": [
         "理容",
@@ -663,7 +679,8 @@
         "attribution_required": true,
         "attribution": "出典：滋賀県",
         "personal_data_policy": "施設・事業所情報を中心とし、必要以上の個人情報集約は行わない",
-        "final_verification": "公式公開元で確認"
+        "final_verification": "公式公開元で確認",
+        "transformation": "滋賀県公開PDF9分野の表データをOPEN RADAR用に正規化・統合したCSV。原本確認用に出典ファイル列を保持。"
       },
       "automation": {
         "enabled": false,
