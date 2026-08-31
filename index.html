@@ -1,76 +1,379 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>OPEN RADAR</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPEN RADAR</title>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#222}header{background:#111;color:#fff;padding:28px 20px}header h1{margin:0 0 8px;font-size:32px}header p{margin:0;color:#ccc;font-size:18px}.wrap{max-width:980px;margin:auto;padding:28px 16px}.panel,.card{background:#fff;border-radius:20px;box-shadow:0 4px 18px #0001;padding:24px;margin-bottom:22px}.panel h2,.card h2{margin:0 0 18px;font-size:28px}.search{width:100%;padding:16px 18px;border:1px solid #d2d2d2;border-radius:14px;font-size:17px}.filters,.actions,.sales-tools{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.filters select,.sales-tools select{width:100%;padding:14px;border:1px solid #ccc;border-radius:12px;background:#fff;font-size:15px}.meta,.status,.hint{color:#666;line-height:1.7}.badges{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}.badge{background:#eee;border-radius:999px;padding:7px 11px;font-size:13px}.btn{display:block;text-align:center;text-decoration:none;border:0;border-radius:14px;padding:15px 14px;font-size:16px;font-weight:700;cursor:pointer;background:#222;color:#fff}.btn.secondary{background:#ededed;color:#222}.btn.outline{background:#fff;color:#222;border:1px solid #bbb}.hidden{display:none!important}.viewer-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.smallbtn{border:1px solid #bbb;background:#fff;border-radius:10px;padding:10px 12px;cursor:pointer}.table-wrap{overflow:auto;border:1px solid #ddd;border-radius:14px;margin-top:14px;background:#fff}.data-table{width:100%;border-collapse:collapse;min-width:980px}.data-table th,.data-table td{padding:10px 12px;border-bottom:1px solid #eee;text-align:left;vertical-align:top;font-size:14px}.data-table th{position:sticky;top:0;background:#f3f3f3}.cards{display:none}.data-card{border:1px solid #ddd;border-radius:14px;padding:14px;margin-top:10px;background:#fff}.data-card h3{margin:0 0 8px;font-size:18px}.kv{font-size:14px;line-height:1.7}.warn{background:#fff4d6;border:1px solid #efcc65;border-radius:12px;padding:12px;margin-top:12px}.about{color:#666;line-height:1.8}@media(max-width:700px){header h1{font-size:30px}.filters,.actions,.sales-tools{grid-template-columns:1fr}.panel,.card{padding:20px}.panel h2,.card h2{font-size:25px}.table-wrap{display:none}.cards{display:block}.viewer-head .search{width:100%}}
-.data-table th:nth-child(1),
-.data-table td:nth-child(1){
-  position:sticky;
-  left:0;
-  background:#fff;
-  z-index:2;
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#222}
+header{background:#111;color:#fff;padding:22px 16px}
+header h1{margin:0;font-size:30px}
+header p{margin:6px 0 0;color:#ccc}
+main{max-width:1100px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+input,select{width:100%;padding:13px;margin:6px 0;border:1px solid #ccc;border-radius:8px;font-size:16px;background:#fff}
+button,.link{display:inline-block;padding:11px 14px;margin:5px 4px 5px 0;border:0;border-radius:8px;background:#222;color:#fff;text-decoration:none;cursor:pointer;font-size:14px}
+.link{background:#555}.back{background:#666}
+.item{border:1px solid #ddd;border-radius:12px;padding:15px;margin:10px 0}
+.item h3{margin:0 0 8px}
+.badge{display:inline-block;padding:4px 8px;background:#eee;border-radius:6px;font-size:12px;margin:0 5px 5px 0}
+.small{font-size:13px;color:#666;line-height:1.6}
+.hidden{display:none}
+.viewer-tools{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin:12px 0}
+.viewer-count{font-size:13px;color:#666;margin:8px 0}
+.table-wrap{overflow:auto;border:1px solid #ddd;border-radius:10px;max-height:70vh}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{border-bottom:1px solid #e5e5e5;border-right:1px solid #eee;padding:9px;text-align:left;font-size:13px;white-space:nowrap}
+th{position:sticky;top:0;background:#eee;z-index:1;cursor:pointer}
+th:last-child,td:last-child{border-right:0}
+tr:hover td{background:#fafafa}
+.notice{padding:10px 12px;background:#f3f3f3;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.6}
+.error{padding:12px;background:#fff2f2;border:1px solid #e3bcbc;border-radius:8px;color:#8a2222}
+@media(max-width:700px){
+  header h1{font-size:25px}
+  .card{padding:14px}
+  button,.link{width:100%;margin:5px 0}
+  .viewer-tools{grid-template-columns:1fr}
+  th,td{font-size:12px;padding:8px}
 }
-
-.data-table th:nth-child(2),
-.data-table td:nth-child(2){
-  position:sticky;
-  left:140px;
-  background:#fff;
-  z-index:2;
-}
-
-.data-table th:nth-child(1),
-.data-table th:nth-child(2){
-  background:#f3f3f3;
-  z-index:3;
-}</style>
+</style>
 </head>
 <body>
-<header><h1>OPEN RADAR</h1><p>公開情報を、見つけやすく。</p></header>
-<main class="wrap">
-<section class="panel" id="listPage"><h2>公開情報を探す</h2><input id="keyword" class="search" placeholder="キーワード・施設名・地域など"><div class="filters"><select id="category"><option value="">分野：すべて</option></select><select id="prefecture"><option value="">都道府県：すべて</option></select><select id="city"><option value="">市町村：すべて</option></select></div><div id="resultCount" class="status">データを読み込み中…</div></section>
-<div id="datasetList"></div>
-<section class="card hidden" id="viewer"><div class="viewer-head"><div><button class="smallbtn" id="backBtn">← 一覧に戻る</button><h2 id="viewerTitle" style="margin-top:16px"></h2><div class="meta" id="viewerMeta"></div></div><input id="viewerSearch" class="search" placeholder="検索"></div><div id="salesTools" class="sales-tools hidden"><select id="industryFilter"><option value="">業種：すべて</option></select><select id="salesFilter"><option value="">営業向け：すべて</option><option value="recent90">最近90日以内に許可開始</option><option value="recent180">最近180日以内に許可開始</option><option value="expire180">180日以内に許可満了</option><option value="expire365">1年以内に許可満了</option></select><select id="sortOrder"><option value="startDesc">許可開始：新しい順</option><option value="expireAsc">許可満了：近い順</option><option value="nameAsc">施設名：あいうえお順</option></select></div><div id="viewerHint" class="hint"></div><div id="viewerCount" class="status"></div><div id="viewerMessage"></div><div class="table-wrap" id="tableWrap"><table class="data-table"><thead id="thead"></thead><tbody id="tbody"></tbody></table></div><div id="cards" class="cards"></div><div id="linkCards"></div><div class="actions" id="viewerActions"></div></section>
-<section class="card about"><h2>OPEN RADARについて</h2><p>国・自治体等が公開している情報を、公開元の利用条件を確認したうえで探しやすく整理するためのサイトです。</p><p>OPEN RADAR内の表示は利便性のための整理表示です。最終確認は必ず公開元の公式情報をご確認ください。</p></section>
-</main>
-<script>
-const DATA_PATH='./data.json';let catalog=[],currentDataset=null,rows=[],headers=[],asOfText='';
-const $=id=>document.getElementById(id);const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));const unique=a=>[...new Set(a.filter(Boolean))].sort((a,b)=>String(a).localeCompare(String(b),'ja'));
-function fillSelect(id,vals,label){const e=$(id),old=e.value;e.innerHTML='<option value="">'+label+'</option>'+unique(vals).map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('');if([...e.options].some(o=>o.value===old))e.value=old;}
-async function loadCatalog(){const r=await fetch(DATA_PATH+'?v='+Date.now(),{cache:'no-store'});if(!r.ok)throw new Error('data.json取得エラー HTTP '+r.status);const d=await r.json();if(!d||!Array.isArray(d.datasets))throw new Error('data.json形式エラー');catalog=d.datasets;refreshFilters();renderCatalog();}
-function refreshFilters(){fillSelect('category',catalog.map(x=>x.category),'分野：すべて');fillSelect('prefecture',catalog.map(x=>x.prefecture),'都道府県：すべて');refreshCities();}
-function refreshCities(){const p=$('prefecture').value,s=p?catalog.filter(x=>x.prefecture===p):catalog;fillSelect('city',s.map(x=>x.city),'市町村：すべて');}
-function filteredCatalog(){const q=$('keyword').value.trim().toLowerCase(),c=$('category').value,p=$('prefecture').value,city=$('city').value;return catalog.filter(x=>{const text=[x.title,x.category,x.prefecture,x.city,x.publisher,x.format,x.description,...(x.search_terms||[])].filter(Boolean).join(' ').toLowerCase();return(!q||text.includes(q))&&(!c||x.category===c)&&(!p||x.prefecture===p)&&(!city||x.city===city);});}
-function renderCatalog(){const a=filteredCatalog();$('resultCount').textContent=a.length+'件の公開情報';$('datasetList').innerHTML=a.map(x=>`<section class="card"><h2>${esc(x.title)}</h2><div class="meta">${esc(x.prefecture)} ${esc(x.city)} / 公開元：${esc(x.publisher)}</div><div class="badges"><span class="badge">${esc(x.format||'')}</span>${x.data_as_of?'<span class="badge">'+esc(x.data_as_of)+'</span>':''}${x.viewer?.type==='link_collection'?'<span class="badge">'+(x.viewer.items?.length||0)+'件</span>':''}</div><p class="meta">${esc(x.description||'')}</p><div class="actions">${x.viewer?'<button class="btn" data-open="'+esc(x.id)+'">中身を見る</button>':''}${x.file_url?'<a class="btn secondary" href="'+esc(x.file_url)+'" target="_blank">元データ・資料</a>':''}${x.source_url?'<a class="btn outline" href="'+esc(x.source_url)+'" target="_blank">公式公開ページ</a>':''}</div></section>`).join('');document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openDataset(b.dataset.open));}
-function parseCSV(t){const out=[];let row=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];if(q){if(c==='"'&&t[i+1]==='"'){f+='"';i++;}else if(c==='"')q=false;else f+=c;}else{if(c==='"')q=true;else if(c===','){row.push(f);f='';}else if(c==='\n'){row.push(f);out.push(row);row=[];f='';}else if(c!=='\r')f+=c;}}if(f.length||row.length){row.push(f);out.push(row);}return out;}
-function decodeBest(b){const u=new TextDecoder('utf-8').decode(b),bu=(u.match(/�/g)||[]).length;if(!bu)return{text:u,encoding:'UTF-8'};try{const s=new TextDecoder('shift_jis').decode(b),bs=(s.match(/�/g)||[]).length;if(bs<bu)return{text:s,encoding:'Shift_JIS'};}catch(e){}return{text:u,encoding:'UTF-8'};}
-const clean=v=>String(v??'').replace(/^\uFEFF/,'').trim();
-function parseDate(v){
-  const t=clean(v).replace(/[.\-]/g,'/').replace(/年/g,'/').replace(/月/g,'/').replace(/日/g,'');
-  let m=t.match(/^(\d{4})\/(\d{1,2})\/(\d{1,2})$/);
-  if(m)return new Date(+m[1],+m[2]-1,+m[3]);
-  m=t.match(/^([RrHhSsTtMm])(\d{1,2})\/(\d{1,2})\/(\d{1,2})$/);
-  if(m){
-    const base={R:2018,H:1988,S:1925,T:1911,M:1867}[m[1].toUpperCase()];
-    return new Date(base+(+m[2]),+m[3]-1,+m[4]);
-  }
-  m=t.match(/^(令和|平成|昭和|大正|明治)(\d{1,2})\/(\d{1,2})\/(\d{1,2})$/);
-  if(m){
-    const base={令和:2018,平成:1988,昭和:1925,大正:1911,明治:1867}[m[1]];
-    return new Date(base+(+m[2]),+m[3]-1,+m[4]);
-  }
-  return null;
-}
-const firstValue=(r,keys)=>{for(const k of keys){if(r[k])return r[k]}return'';};
-const facilityName=r=>firstValue(r,['施設名','事業所名','医療機関名','名称']);
-const facilityAddress=r=>firstValue(r,['施設所在地','施設住所','事業所所在地','所在地','住所']);
+<header>
+  <h1>OPEN RADAR</h1>
+  <p>全国の公開データを探すためのデータレーダー</p>
+</header>
 
-async function loadCSV(ds){const c=ds.viewer,r=await fetch(c.path,{cache:'no-store'});if(!r.ok)throw new Error('CSV取得エラー HTTP '+r.status);const d=decodeBest(await r.arrayBuffer());if((d.text.match(/�/g)||[]).length)throw new Error('文字化けの可能性を検出したため表示を停止しました');const p=parseCSV(d.text);headers=p[c.header_row].map(clean);rows=p.slice(c.data_start_row).filter(r=>r.some(v=>clean(v))).map(r=>{const o={};headers.forEach((h,i)=>o[h]=clean(r[i]));return o;});const miss=(c.required_columns||[]).filter(h=>!headers.includes(h));if(miss.length)throw new Error('必要な列がありません: '+miss.join('、'));asOfText=clean(p[c.as_of_row]?.[0]||ds.data_as_of||'');setupCSV(ds);renderCSV(ds);}
-function setupCSV(ds){$('salesTools').classList.remove('hidden');$('industryFilter').innerHTML='<option value="">業種：すべて</option>'+unique(rows.map(r=>r[ds.viewer.industry_column])).map(v=>'<option value="'+esc(v)+'">'+esc(v)+'</option>').join('');$('viewerHint').textContent='「最近の許可」は新規開業を断定するものではなく、営業先候補を探すための目安です。最終確認は公式情報で行ってください。';}
-function renderCSV(ds){const c=ds.viewer,q=$('viewerSearch').value.trim().toLowerCase(),ind=$('industryFilter').value,sales=$('salesFilter').value,sort=$('sortOrder').value,today=new Date(),plus=d=>new Date(today.getFullYear(),today.getMonth(),today.getDate()+d);let a=rows.filter(r=>{if(q&&!Object.values(r).join(' ').toLowerCase().includes(q))return false;if(ind&&r[c.industry_column]!==ind)return false;const s=parseDate(r[c.start_date_column]),e=parseDate(r[c.expire_date_column]);if(sales==='recent90'&&(!s||s<plus(-90)||s>today))return false;if(sales==='recent180'&&(!s||s<plus(-180)||s>today))return false;if(sales==='expire180'&&(!e||e<today||e>plus(180)))return false;if(sales==='expire365'&&(!e||e<today||e>plus(365)))return false;return true;});a.sort((x,y)=>sort==='expireAsc'?(parseDate(x[c.expire_date_column])||new Date(9999,0,1))-(parseDate(y[c.expire_date_column])||new Date(9999,0,1)):sort==='nameAsc'?facilityName(x).localeCompare(facilityName(y),'ja'):(parseDate(y[c.start_date_column])||new Date(0))-(parseDate(x[c.start_date_column])||new Date(0)));$('viewerCount').textContent=a.length.toLocaleString('ja-JP')+'件表示';$('viewerMeta').textContent=asOfText+' / 公開元：'+ds.publisher;const cols=(c.display_columns||headers);$('thead').innerHTML='<tr>'+cols.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr>';$('tbody').innerHTML=a.slice(0,1000).map(r=>'<tr>'+cols.map(h=>'<td>'+esc(r[h])+'</td>').join('')+'</tr>').join('');$('cards').innerHTML=a.slice(0,500).map(r=>'<article class="data-card"><h3>'+esc(facilityName(r)||'名称未設定')+'</h3><div class="kv"><b>所在地：</b>'+esc(facilityAddress(r))+'<br><b>業種：</b>'+esc(r['業種']||'')+'<br><b>申請者：</b>'+esc(r['申請者名']||'')+'<br><b>許可期間：</b>'+esc(r[c.start_date_column]||'')+' ～ '+esc(r[c.expire_date_column]||'')+'</div></article>').join('');}
-function renderLinks(ds){$('salesTools').classList.add('hidden');$('viewerHint').textContent=ds.viewer.notice||'';$('viewerCount').textContent=(ds.viewer.items||[]).length+'件';$('tableWrap').classList.add('hidden');$('cards').classList.add('hidden');$('linkCards').innerHTML=(ds.viewer.items||[]).map(x=>'<article class="data-card"><h3>'+esc(x.label)+'</h3><div class="kv">'+esc(x.summary||'')+'</div><a class="btn secondary" href="'+esc(x.url)+'" target="_blank" style="margin-top:10px">位置図を見る</a></article>').join('');}
-async function openDataset(id){const ds=catalog.find(x=>x.id===id);if(!ds)return;currentDataset=ds;rows=[];headers=[];asOfText='';$('listPage').classList.add('hidden');$('datasetList').classList.add('hidden');$('viewer').classList.remove('hidden');$('viewerTitle').textContent=ds.title;$('viewerMeta').textContent=ds.prefecture+' '+ds.city+' / 公開元：'+ds.publisher;$('viewerSearch').value='';$('viewerSearch').placeholder=ds.viewer.search_placeholder||'検索';$('linkCards').innerHTML='';$('tableWrap').classList.remove('hidden');$('cards').classList.remove('hidden');$('viewerActions').innerHTML=(ds.file_url?'<a class="btn secondary" href="'+esc(ds.file_url)+'" target="_blank">元データ・資料</a>':'')+(ds.source_url?'<a class="btn outline" href="'+esc(ds.source_url)+'" target="_blank">公式公開ページ</a>':'');try{if(ds.viewer.type==='csv_table')await loadCSV(ds);else if(ds.viewer.type==='link_collection')renderLinks(ds);else throw new Error('未対応の表示形式です');}catch(e){$('viewerMessage').innerHTML='<div class="warn">'+esc(e.message)+'</div>';}window.scrollTo(0,0);}
-function back(){ $('viewer').classList.add('hidden');$('listPage').classList.remove('hidden');$('datasetList').classList.remove('hidden');renderCatalog();window.scrollTo(0,0);}
-$('backBtn').onclick=back;$('viewerSearch').oninput=()=>{if(currentDataset?.viewer?.type==='csv_table')renderCSV(currentDataset)};['industryFilter','salesFilter','sortOrder'].forEach(id=>$(id).onchange=()=>{if(currentDataset?.viewer?.type==='csv_table')renderCSV(currentDataset)});$('keyword').oninput=renderCatalog;$('category').onchange=renderCatalog;$('prefecture').onchange=()=>{refreshCities();renderCatalog()};$('city').onchange=renderCatalog;loadCatalog().catch(e=>$('resultCount').innerHTML='<div class="warn">'+esc(e.message)+'</div>');
-</script></body></html>
+<main>
+<div id="listPage">
+  <div class="card">
+    <h2>公開データを探す</h2>
+    <input id="keyword" type="search" placeholder="キーワード・施設名・自治体名など">
+    <select id="category"><option value="">すべての分野</option></select>
+    <select id="prefecture"><option value="">すべての都道府県</option></select>
+    <div id="count" class="small">データを読み込んでいます…</div>
+  </div>
+
+  <div class="card"><div id="results"></div></div>
+
+  <div class="card">
+    <h3>OPEN RADARについて</h3>
+    <p class="small">国・自治体等が公開している情報を、公開元の利用条件を確認したうえで探しやすく整理するためのサイトです。</p>
+    <p class="small">OPEN RADAR内の表示は利便性のための整理表示です。最終確認は必ず公開元の公式情報をご確認ください。</p>
+  </div>
+</div>
+
+<div id="detailPage" class="hidden">
+  <div class="card">
+    <button class="back" id="backButton">← 一覧に戻る</button>
+    <div id="detail"></div>
+  </div>
+</div>
+</main>
+
+<script>
+"use strict";
+
+let datasets = [];
+let currentRows = [];
+let currentFilteredRows = [];
+let currentViewer = null;
+let currentSort = { column: "", asc: true };
+const MAX_RENDER_ROWS = 300;
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function escapeAttribute(value){
+  return escapeHTML(value);
+}
+
+function getViewer(item){
+  // V5.8.0医療データはトップ階層にcsv_table設定があるため、こちらを最優先。
+  if(item && item.type === "csv_table"){
+    return {
+      type: "csv_table",
+      path: item.file || item.file_url || "",
+      header_row: Number.isInteger(item.header_row) ? item.header_row : 0,
+      data_start_row: Number.isInteger(item.data_start_row) ? item.data_start_row : 1,
+      display_columns: Array.isArray(item.display_columns) ? item.display_columns : [],
+      search_placeholder: item.search_placeholder || "施設名・住所などで検索",
+      industry_column: item.industry_column || "",
+      start_date_column: item.start_date || "",
+      expire_date_column: item.expire_date || ""
+    };
+  }
+  return item && item.viewer ? item.viewer : null;
+}
+
+async function loadData(){
+  try{
+    const response = await fetch("./data.json?v=" + Date.now(), {cache:"no-store"});
+    if(!response.ok) throw new Error("data.json 読み込み失敗: " + response.status);
+    const data = await response.json();
+    datasets = Array.isArray(data.datasets) ? data.datasets : [];
+    makeFilters();
+    searchData();
+  }catch(error){
+    $("count").textContent = "データを読み込めませんでした。";
+    $("results").innerHTML = '<div class="error">data.json を読み込めませんでした。</div>';
+    console.error(error);
+  }
+}
+
+function makeFilters(){
+  const categories = [...new Set(datasets.map(x=>x.category).filter(Boolean))].sort();
+  const prefectures = [...new Set(datasets.map(x=>x.prefecture).filter(Boolean))].sort();
+  categories.forEach(value=>{
+    const o=document.createElement("option"); o.value=value; o.textContent=value; $("category").appendChild(o);
+  });
+  prefectures.forEach(value=>{
+    const o=document.createElement("option"); o.value=value; o.textContent=value; $("prefecture").appendChild(o);
+  });
+}
+
+function searchData(){
+  const keyword=$("keyword").value.trim().toLowerCase();
+  const category=$("category").value;
+  const prefecture=$("prefecture").value;
+
+  const results=datasets.filter(item=>{
+    const text=[
+      item.title,item.description,item.category,item.prefecture,item.city,item.publisher,item.id,
+      ...(Array.isArray(item.search_terms)?item.search_terms:[])
+    ].filter(Boolean).join(" ").toLowerCase();
+    return (!keyword || text.includes(keyword))
+      && (!category || item.category===category)
+      && (!prefecture || item.prefecture===prefecture);
+  });
+
+  $("count").textContent=results.length+"件のデータ";
+  const container=$("results"); container.innerHTML="";
+  if(!results.length){
+    container.innerHTML="<p>該当するデータがありません。</p>"; return;
+  }
+  results.forEach(item=>{
+    const div=document.createElement("div"); div.className="item";
+    const viewer=getViewer(item);
+    const internal = viewer && viewer.type==="csv_table";
+    div.innerHTML=`
+      <h3>${escapeHTML(item.title||"名称未設定")}</h3>
+      <span class="badge">${escapeHTML(item.category||"未分類")}</span>
+      <span class="badge">${escapeHTML(item.prefecture||"")}</span>
+      <span class="badge">${escapeHTML(item.city||"")}</span>
+      ${internal?'<span class="badge">内部検索対応</span>':""}
+      <p class="small">公開元：${escapeHTML(item.publisher||"不明")}</p>
+      <p class="small">${escapeHTML(item.description||"")}</p>
+      <button class="detail-btn">詳細を見る</button>`;
+    div.querySelector(".detail-btn").addEventListener("click",()=>showDetail(item));
+    container.appendChild(div);
+  });
+}
+
+function parseCSV(text){
+  // 引用符内のカンマ・改行・"" を扱う簡易RFC4180対応パーサ
+  const rows=[]; let row=[]; let field=""; let quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(quoted){
+      if(c==='"' && text[i+1]==='"'){ field+='"'; i++; }
+      else if(c==='"'){ quoted=false; }
+      else field+=c;
+    }else{
+      if(c==='"'){ quoted=true; }
+      else if(c===','){ row.push(field); field=""; }
+      else if(c==='\n'){
+        row.push(field); rows.push(row); row=[]; field="";
+      }else if(c!=='\r'){ field+=c; }
+    }
+  }
+  if(field!=="" || row.length){ row.push(field); rows.push(row); }
+  if(rows.length && rows[0].length) rows[0][0]=rows[0][0].replace(/^\uFEFF/,"");
+  return rows;
+}
+
+async function loadCSVViewer(item, viewer){
+  const path=viewer.path || item.file_url || "";
+  if(!path){
+    $("csvArea").innerHTML='<div class="error">CSVファイルの指定がありません。</div>'; return;
+  }
+  try{
+    $("csvArea").innerHTML='<p class="small">一覧データを読み込んでいます…</p>';
+    const response=await fetch(path+"?v="+Date.now(), {cache:"no-store"});
+    if(!response.ok) throw new Error("CSV読み込み失敗: "+response.status);
+    const text=await response.text();
+    const matrix=parseCSV(text);
+
+    const headerRow=Number.isInteger(viewer.header_row)?viewer.header_row:0;
+    const dataStart=Number.isInteger(viewer.data_start_row)?viewer.data_start_row:headerRow+1;
+    const headers=(matrix[headerRow]||[]).map(x=>String(x||"").trim());
+
+    currentRows=matrix.slice(dataStart)
+      .filter(r=>r.some(v=>String(v||"").trim()!==""))
+      .map(r=>{
+        const obj={};
+        headers.forEach((h,i)=>{ if(h) obj[h]=r[i]??""; });
+        return obj;
+      });
+
+    currentViewer=viewer;
+    currentSort={column:"",asc:true};
+
+    $("csvArea").innerHTML=`
+      <div class="viewer-tools">
+        <input id="rowSearch" type="search" placeholder="${escapeAttribute(viewer.search_placeholder||"施設名・住所などで検索")}">
+        <select id="rowIndustry"><option value="">すべてのカテゴリ</option></select>
+      </div>
+      <div id="rowCount" class="viewer-count"></div>
+      <div id="tableArea"></div>`;
+
+    if(viewer.industry_column){
+      const vals=[...new Set(currentRows.map(r=>String(r[viewer.industry_column]||"").trim()).filter(Boolean))].sort();
+      vals.forEach(v=>{
+        const o=document.createElement("option");o.value=v;o.textContent=v;$("rowIndustry").appendChild(o);
+      });
+    }else{
+      $("rowIndustry").style.display="none";
+    }
+
+    $("rowSearch").addEventListener("input",filterRows);
+    $("rowIndustry").addEventListener("change",filterRows);
+    filterRows();
+  }catch(error){
+    $("csvArea").innerHTML='<div class="error">CSVを読み込めませんでした。GitHub上のCSVファイル名と data.json の指定を確認してください。</div>';
+    console.error(error);
+  }
+}
+
+function filterRows(){
+  if(!currentViewer) return;
+  const q=($("rowSearch")?.value||"").trim().toLowerCase();
+  const industry=($("rowIndustry")?.value||"");
+  const industryCol=currentViewer.industry_column||"";
+
+  currentFilteredRows=currentRows.filter(row=>{
+    const text=Object.values(row).join(" ").toLowerCase();
+    const qOK=!q || text.includes(q);
+    const indOK=!industry || String(row[industryCol]||"")===industry;
+    return qOK && indOK;
+  });
+  applySort();
+  renderTable();
+}
+
+function applySort(){
+  if(!currentSort.column) return;
+  const c=currentSort.column, dir=currentSort.asc?1:-1;
+  currentFilteredRows.sort((a,b)=>
+    String(a[c]||"").localeCompare(String(b[c]||""),"ja",{numeric:true})*dir
+  );
+}
+
+function sortRows(column){
+  if(currentSort.column===column) currentSort.asc=!currentSort.asc;
+  else currentSort={column,asc:true};
+  applySort(); renderTable();
+}
+
+function renderTable(){
+  const cols=(currentViewer.display_columns && currentViewer.display_columns.length)
+    ? currentViewer.display_columns
+    : Object.keys(currentRows[0]||{});
+
+  const total=currentFilteredRows.length;
+  const shown=Math.min(total,MAX_RENDER_ROWS);
+  $("rowCount").textContent = total+"件" + (total>MAX_RENDER_ROWS ? "（先頭"+MAX_RENDER_ROWS+"件を表示。検索すると絞り込めます）" : "");
+
+  if(!total){
+    $("tableArea").innerHTML="<p>該当する施設がありません。</p>"; return;
+  }
+
+  let html='<div class="table-wrap"><table><thead><tr>';
+  cols.forEach(c=>{
+    const mark=currentSort.column===c?(currentSort.asc?" ▲":" ▼"):"";
+    html+=`<th data-col="${escapeAttribute(c)}">${escapeHTML(c+mark)}</th>`;
+  });
+  html+='</tr></thead><tbody>';
+  currentFilteredRows.slice(0,shown).forEach(row=>{
+    html+="<tr>";
+    cols.forEach(c=>html+=`<td>${escapeHTML(row[c]??"")}</td>`);
+    html+="</tr>";
+  });
+  html+="</tbody></table></div>";
+  $("tableArea").innerHTML=html;
+  $("tableArea").querySelectorAll("th[data-col]").forEach(th=>{
+    th.addEventListener("click",()=>sortRows(th.dataset.col));
+  });
+}
+
+async function showDetail(item){
+  $("listPage").classList.add("hidden");
+  $("detailPage").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"instant"});
+
+  const sourceURL=item.source_url||"";
+  const fileURL=item.file_url||"";
+  const viewer=getViewer(item);
+
+  let buttons="";
+  if(sourceURL){
+    buttons+=`<a class="link" href="${escapeAttribute(sourceURL)}" target="_blank" rel="noopener">公式公開ページ</a>`;
+  }
+  if(fileURL && fileURL!==sourceURL && !String(fileURL).startsWith("./")){
+    buttons+=`<a class="link" href="${escapeAttribute(fileURL)}" target="_blank" rel="noopener">元データ・資料</a>`;
+  }
+
+  let viewerHTML="";
+  if(viewer && viewer.type==="link_collection"){
+    const items=Array.isArray(viewer.items)?viewer.items:[];
+    viewerHTML += viewer.notice ? `<div class="notice">${escapeHTML(viewer.notice)}</div>` : "";
+    items.forEach(x=>{
+      viewerHTML+=`<div class="item"><h3>${escapeHTML(x.label||"資料")}</h3><p class="small">${escapeHTML(x.summary||"")}</p>${x.url?`<a class="link" href="${escapeAttribute(x.url)}" target="_blank" rel="noopener">公式資料を開く</a>`:""}</div>`;
+    });
+  }else if(viewer && viewer.type==="csv_table"){
+    viewerHTML='<div id="csvArea"><p class="small">一覧データを読み込んでいます…</p></div>';
+  }
+
+  $("detail").innerHTML=`
+    <h2>${escapeHTML(item.title||"名称未設定")}</h2>
+    <p>
+      <span class="badge">${escapeHTML(item.category||"未分類")}</span>
+      <span class="badge">${escapeHTML(item.prefecture||"")}</span>
+      <span class="badge">${escapeHTML(item.city||"")}</span>
+    </p>
+    <p class="small">公開元：${escapeHTML(item.publisher||"―")}</p>
+    <p class="small">データ基準日：${escapeHTML(item.data_as_of||"―")}</p>
+    <p class="small">${escapeHTML(item.description||"")}</p>
+    ${buttons}
+    ${viewerHTML}
+    <hr>
+    <p class="small">OPEN RADAR内の表示は検索・確認をしやすくするための整理表示です。最新・正式な内容は公開元の公式情報で確認してください。</p>`;
+
+  if(viewer && viewer.type==="csv_table"){
+    await loadCSVViewer(item,viewer);
+  }
+}
+
+function showList(){
+  $("detailPage").classList.add("hidden");
+  $("listPage").classList.remove("hidden");
+  currentRows=[]; currentFilteredRows=[]; currentViewer=null;
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+$("keyword").addEventListener("input",searchData);
+$("category").addEventListener("change",searchData);
+$("prefecture").addEventListener("change",searchData);
+$("backButton").addEventListener("click",showList);
+
+loadData();
+</script>
+</body>
+</html>
+index_v5.8.1.html
+HTML
