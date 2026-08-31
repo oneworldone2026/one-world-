@@ -1,5 +1,5 @@
 {
-  "version": "5.5",
+  "version": "5.6",
   "updated": "2026-08-31",
   "datasets": [
     {
@@ -734,17 +734,30 @@
       "data_as_of": "2026年7月31日現在",
       "description": "滋賀県が公開する食品営業許可施設一覧。大津市版とは別の県所管データとして扱う。",
       "source_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
-      "file_url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
+      "file_url": "./shiga_food_license_20260731.csv",
       "viewer": {
-        "type": "link_collection",
-        "notice": "県公式CSVを基礎データとして扱い、今後は前回CSVとの差分から新規許可候補を検出します。",
-        "items": [
-          {
-            "label": "滋賀県 食品営業許可施設一覧 公式資料",
-            "summary": "滋賀県公式公開元で最新内容を確認できます。",
-            "url": "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html"
-          }
-        ]
+        "type": "csv_table",
+        "path": "./shiga_food_license_20260731.csv",
+        "as_of_row": 0,
+        "header_row": 0,
+        "data_start_row": 1,
+        "required_columns": [
+          "施設名",
+          "業種"
+        ],
+        "display_columns": [
+          "施設名",
+          "業種",
+          "申請者名",
+          "施設番号",
+          "当初許可日",
+          "満了日",
+          "条件1"
+        ],
+        "search_placeholder": "施設名・住所・業種で検索",
+        "industry_column": "業種",
+        "start_date_column": "当初許可日",
+        "expire_date_column": "満了日"
       },
       "search_terms": [
         "食品",
