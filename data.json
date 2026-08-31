@@ -1,5 +1,5 @@
 {
-  "version": "5.7.0",
+  "version": "5.8.0",
   "updated": "2026-08-31",
   "datasets": [
     {
@@ -693,14 +693,14 @@
     },
     {
       "id": "shiga-medical-institutions",
-      "title": "滋賀県 医療機関等一覧",
+      "title": "滋賀県 医療・薬局関連施設一覧",
       "category": "医療",
       "prefecture": "滋賀県",
-      "city": "県内各市町",
+      "city": "滋賀県",
       "publisher": "滋賀県 健康医療福祉部 医療政策課",
       "format": "Excel / オープンデータ",
       "data_as_of": "病院・一般診療所・歯科診療所 2026年7月1日現在",
-      "description": "病院、一般診療所、歯科診療所の公式一覧。一般・歯科は大津市分を含まない。",
+      "description": "病院・一般診療所・歯科診療所・歯科技工所・薬局・店舗販売業を統合した一覧（2,317件）。",
       "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
       "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
       "viewer": {
@@ -738,7 +738,28 @@
         "item_key_pattern": "医療機関種別＋施設名＋所在地",
         "planned_behavior": "前回保存データと最新公式データを比較し、新規・廃止・名称変更・移転等の差分候補を検出",
         "status": "設計済み・未自動化"
-      }
+      },
+      "type": "csv_table",
+      "file": "./shiga_medical_pharmacy_complete_20260831.csv",
+      "header_row": 0,
+      "data_start_row": 1,
+      "display_columns": [
+        "カテゴリ",
+        "施設名",
+        "所在地",
+        "電話番号",
+        "開設者名",
+        "管理者名",
+        "開設年月日",
+        "有効開始日",
+        "有効終了日"
+      ],
+      "search_placeholder": "施設名・所在地・カテゴリ・開設者名で検索",
+      "industry_column": "カテゴリ",
+      "start_date": "開設年月日",
+      "expire_date": "有効終了日",
+      "source_checked": "2026-08-31",
+      "transformation_note": "滋賀県公表資料をOPEN RADAR用に項目統一・統合。病院は大津市を含み、一般診療所・歯科診療所・歯科技工所・薬局・店舗販売業は公表元の対象範囲に従う。"
     },
     {
       "id": "shiga-food-license",
