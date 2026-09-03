@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPEN RADAR</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f5f5f5;color:#222}
+header{background:#111;color:#fff;padding:22px 16px}
+header h1{margin:0;font-size:30px}
+header p{margin:6px 0 0;color:#ccc}
+main{max-width:1100px;margin:auto;padding:16px}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+input,select{width:100%;padding:13px;margin:6px 0;border:1px solid #ccc;border-radius:8px;font-size:16px;background:#fff}
+button,.link{display:inline-block;padding:11px 14px;margin:5px 4px 5px 0;border:0;border-radius:8px;background:#222;color:#fff;text-decoration:none;cursor:pointer;font-size:14px}
+.link{background:#555}.back{background:#666}
+.item{border:1px solid #ddd;border-radius:12px;padding:15px;margin:10px 0}
+.item h3{margin:0 0 8px}
+.badge{display:inline-block;padding:4px 8px;background:#eee;border-radius:6px;font-size:12px;margin:0 5px 5px 0}
+.small{font-size:13px;color:#666;line-height:1.6}
+.hidden{display:none}
+.viewer-tools{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin:12px 0}
+.viewer-count{font-size:13px;color:#666;margin:8px 0}
+.table-wrap{overflow:auto;border:1px solid #ddd;border-radius:10px;max-height:70vh}
+table{width:100%;border-collapse:collapse;background:#fff}
+th,td{border-bottom:1px solid #e5e5e5;border-right:1px solid #eee;padding:9px;text-align:left;font-size:13px;white-space:nowrap}
+th{position:sticky;top:0;background:#eee;z-index:1;cursor:pointer}
+th:last-child,td:last-child{border-right:0}
+tr:hover td{background:#fafafa}
+.notice{padding:10px 12px;background:#f3f3f3;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.6}
+.error{padding:12px;background:#fff2f2;border:1px solid #e3bcbc;border-radius:8px;color:#8a2222}
+@media(max-width:700px){
+  header h1{font-size:25px}
+  .card{padding:14px}
+  button,.link{width:100%;margin:5px 0}
+  .viewer-tools{grid-template-columns:1fr}
+  th,td{font-size:12px;padding:8px}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>OPEN RADAR</h1>
+  <p>全国の公開データを探すためのデータレーダー</p>
+</header>
+
+<main>
+<div id="listPage">
+  <div class="card">
+    <h2>公開データを探す</h2>
+    <input id="keyword" type="search" placeholder="キーワード・施設名・自治体名など">
+    <select id="category"><option value="">すべての分野</option></select>
+    <select id="prefecture"><option value="">すべての都道府県</option></select>
+    <div id="count" class="small">データを読み込んでいます…</div>
+  </div>
+
+  <div class="card"><div id="results"></div></div>
+
+  <div class="card">
+    <h3>OPEN RADARについて</h3>
+    <p class="small">国・自治体等が公開している情報を、公開元の利用条件を確認したうえで探しやすく整理するためのサイトです。</p>
+    <p class="small">OPEN RADAR内の表示は利便性のための整理表示です。最終確認は必ず公開元の公式情報をご確認ください。</p>
+  </div>
+</div>
+
+<div id="detailPage" class="hidden">
+  <div class="card">
+    <button class="back" id="backButton">← 一覧に戻る</button>
+    <div id="detail"></div>
+  </div>
+</div>
+</main>
+
+<script>
+"use strict";
+
+let datasets = [];
+let currentRows = [];
+let currentFilteredRows = [];
+let currentViewer = null;
+let currentSort = { column: "", asc: true };
+const MAX_RENDER_ROWS = 300;
+
+const $ = id => document.getElementById(id);
+
+function escapeHTML(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function escapeAttribute(value){
+  return escapeHTML(value);
+}
+
+
+// 公開CSVごとの列を固定し、未知の列は読み込みません。
+const PUBLIC_COLUMNS = {
+  "od_2607.csv": [
+    "許可番号",
+    "法人・団体名",
+    "施設名",
+    "施設所在地",
+    "業種",
+    "許可申請年月日",
+    "許可開始年月日",
+    "許可満了年月日",
+    "条件"
+  ],
+  "shiga_food_license_20260731.csv": [
+    "施設名",
+    "施設郵便",
+    "施設住所",
+    "法人・団体名",
+    "施設番号",
+    "許可日",
+    "当初許可日",
+    "業種",
+    "種目主",
+    "種目従",
+    "満了日",
+    "条件1",
+    "条件2",
+    "条件3",
+    "条件4"
+  ],
+  "shiga_large_retail_notices_20260903.csv": [
+    "案件ID",
+    "店舗名",
+    "市町",
+    "所在地",
+    "届出区分",
+    "届出日",
+    "新設日・変更日",
+    "店舗面積（㎡）",
+    "届出者（公告の設置者）",
+    "主要小売業者",
+    "駐車場（台）",
+    "駐輪場（台）",
+    "営業時間",
+    "駐車場利用時間",
+    "公告日",
+    "意見提出期限",
+    "変更前店舗面積（㎡）",
+    "変更前駐車場（台）",
+    "変更前駐輪場（台）",
+    "変更前営業時間",
+    "変更前駐車場利用時間",
+    "注記",
+    "公告PDFのURL"
+  ],
+  "shiga_life_hygiene_20260731.csv": [
+    "カテゴリ",
+    "施設名",
+    "郵便番号",
+    "所在地",
+    "住所",
+    "番地",
+    "法人・団体名",
+    "確認・許可年月日",
+    "種別",
+    "旧種別",
+    "登録期限",
+    "保健所"
+  ],
+  "shiga_medical_pharmacy_complete_20260831.csv": [
+    "カテゴリ",
+    "管理番号",
+    "施設名",
+    "郵便番号",
+    "所在地",
+    "法人・団体名",
+    "開設年月日",
+    "有効開始日",
+    "有効終了日"
+  ]
+};
+function safeOfficialURL(value){
+  if(typeof value!=="string" || /[\u0000-\u0020\u007f]/.test(value)) return "";
+  try{
+    const u=new URL(value);
+    return u.protocol==="https:" && !u.username && !u.password && !u.port
+      && ["www.pref.shiga.lg.jp","www.city.otsu.lg.jp"].includes(u.hostname) ? u.href : "";
+  }catch{ return ""; }
+}
+function safeCSVPath(value){
+  if(typeof value!=="string") return "";
+  const name=value.startsWith("./")?value.slice(2):value;
+  return Object.hasOwn(PUBLIC_COLUMNS,name)?"./"+name:"";
+}
+function officialPDFCell(column,value){
+  if(column==="公告PDFのURL" && typeof value==="string"
+    && /^https:\/\/www\.pref\.shiga\.lg\.jp\/[^\s?#\\]+\.pdf$/i.test(value)){
+    try{
+      const u=new URL(value);
+      if(u.protocol==="https:" && u.hostname==="www.pref.shiga.lg.jp"
+        && !u.username && !u.password && !u.port && /\.pdf$/i.test(u.pathname)){
+        return `<a href="${escapeAttribute(u.href)}" target="_blank" rel="noopener noreferrer">公式公告PDF</a>`;
+      }
+    }catch{}
+  }
+  return escapeHTML(value??"");
+}
+
+function getViewer(item){
+  return item && item.viewer ? item.viewer : null;
+}
+
+async function loadData(){
+  try{
+    const response = await fetch("./data.json?v=" + Date.now(), {cache:"no-store"});
+    if(!response.ok) throw new Error("data.json 読み込み失敗: " + response.status);
+    const data = await response.json();
+    datasets = Array.isArray(data.datasets) ? data.datasets : [];
+    makeFilters();
+    searchData();
+  }catch(error){
+    $("count").textContent = "データを読み込めませんでした。";
+    $("results").innerHTML = '<div class="error">data.json を読み込めませんでした。</div>';
+
+  }
+}
+
+function makeFilters(){
+  const categories = [...new Set(datasets.map(x=>x.category).filter(Boolean))].sort();
+  const prefectures = [...new Set(datasets.map(x=>x.prefecture).filter(Boolean))].sort();
+  categories.forEach(value=>{
+    const o=document.createElement("option"); o.value=value; o.textContent=value; $("category").appendChild(o);
+  });
+  prefectures.forEach(value=>{
+    const o=document.createElement("option"); o.value=value; o.textContent=value; $("prefecture").appendChild(o);
+  });
+}
+
+function searchData(){
+  const keyword=$("keyword").value.trim().toLowerCase();
+  const category=$("category").value;
+  const prefecture=$("prefecture").value;
+
+  const results=datasets.filter(item=>{
+    const text=[
+      item.title,item.description,item.category,item.prefecture,item.city,item.publisher,item.id,
+      ...(Array.isArray(item.search_terms)?item.search_terms:[])
+    ].filter(Boolean).join(" ").toLowerCase();
+    return (!keyword || text.includes(keyword))
+      && (!category || item.category===category)
+      && (!prefecture || item.prefecture===prefecture);
+  });
+
+  $("count").textContent=results.length+"件のデータ";
+  const container=$("results"); container.innerHTML="";
+  if(!results.length){
+    container.innerHTML="<p>該当するデータがありません。</p>"; return;
+  }
+  results.forEach(item=>{
+    const div=document.createElement("div"); div.className="item";
+    const viewer=getViewer(item);
+    const internal = viewer && viewer.type==="csv_table";
+    div.innerHTML=`
+      <h3>${escapeHTML(item.title||"名称未設定")}</h3>
+      <span class="badge">${escapeHTML(item.category||"未分類")}</span>
+      <span class="badge">${escapeHTML(item.prefecture||"")}</span>
+      <span class="badge">${escapeHTML(item.city||"")}</span>
+      ${internal?'<span class="badge">内部検索対応</span>':""}
+      <p class="small">公開元：${escapeHTML(item.publisher||"不明")}</p>
+      <p class="small">${escapeHTML(item.description||"")}</p>
+      <button class="detail-btn">詳細を見る</button>`;
+    div.querySelector(".detail-btn").addEventListener("click",()=>showDetail(item));
+    container.appendChild(div);
+  });
+}
+
+function parseCSV(text){
+  // 引用符内のカンマ・改行・"" を扱う簡易RFC4180対応パーサ
+  const rows=[]; let row=[]; let field=""; let quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(quoted){
+      if(c==='"' && text[i+1]==='"'){ field+='"'; i++; }
+      else if(c==='"'){ quoted=false; }
+      else field+=c;
+    }else{
+      if(c==='"'){ quoted=true; }
+      else if(c===','){ row.push(field); field=""; }
+      else if(c==='\n'){
+        row.push(field); rows.push(row); row=[]; field="";
+      }else if(c!=='\r'){ field+=c; }
+    }
+  }
+  if(field!=="" || row.length){ row.push(field); rows.push(row); }
+  if(rows.length && rows[0].length) rows[0][0]=rows[0][0].replace(/^\uFEFF/,"");
+  return rows;
+}
+
+async function loadCSVViewer(item, viewer){
+  currentRows=[]; currentFilteredRows=[]; currentViewer=null;
+  const path=safeCSVPath(viewer.path || item.file_url || "");
+  if(!path){
+    $("csvArea").innerHTML='<div class="error">CSVファイルの指定がありません。</div>'; return;
+  }
+  try{
+    $("csvArea").innerHTML='<p class="small">一覧データを読み込んでいます…</p>';
+    const response=await fetch(path+"?v="+Date.now(), {cache:"no-store"});
+    if(!response.ok) throw new Error("CSV読み込み失敗: "+response.status);
+    const text=await response.text();
+    const matrix=parseCSV(text);
+
+    const headerRow=Number.isInteger(viewer.header_row)?viewer.header_row:0;
+    const dataStart=Number.isInteger(viewer.data_start_row)?viewer.data_start_row:headerRow+1;
+    const headers=(matrix[headerRow]||[]).map(x=>String(x||"").trim());
+
+    const allowed=PUBLIC_COLUMNS[path.slice(2)];
+    if(headerRow!==0 || dataStart!==1 || headers.length!==allowed.length
+      || headers.some((h,i)=>h!==allowed[i])) throw new Error("公開CSVの列が一致しません。");
+    viewer={...viewer,
+      search_columns:allowed,
+      display_columns:(viewer.display_columns||allowed).filter(c=>allowed.includes(c)),
+      industry_column:allowed.includes(viewer.industry_column)?viewer.industry_column:""};
+    currentRows=matrix.slice(dataStart)
+      .filter(r=>r.some(v=>String(v||"").trim()!==""))
+      .map(r=>{
+        const obj={};
+        allowed.forEach(h=>{ obj[h]=r[headers.indexOf(h)]??""; });
+        return obj;
+      });
+
+    currentViewer=viewer;
+    currentSort={column:"",asc:true};
+
+    $("csvArea").innerHTML=`
+      <p class="small">個人の申請者・営業者・管理者の氏名と電話番号は掲載していません。</p>
+      <div class="viewer-tools">
+        <input id="rowSearch" type="search" placeholder="${escapeAttribute(viewer.search_placeholder||"施設名・住所などで検索")}">
+        <select id="rowIndustry"><option value="">すべてのカテゴリ</option></select>
+      </div>
+      <div id="rowCount" class="viewer-count"></div>
+      <div id="tableArea"></div>`;
+
+    if(viewer.industry_column){
+      const vals=[...new Set(currentRows.map(r=>String(r[viewer.industry_column]||"").trim()).filter(Boolean))].sort();
+      vals.forEach(v=>{
+        const o=document.createElement("option");o.value=v;o.textContent=v;$("rowIndustry").appendChild(o);
+      });
+    }else{
+      $("rowIndustry").style.display="none";
+    }
+
+    $("rowSearch").addEventListener("input",filterRows);
+    $("rowIndustry").addEventListener("change",filterRows);
+    filterRows();
+  }catch(error){
+    $("csvArea").innerHTML='<div class="error">一覧を読み込めませんでした。しばらくしてから再度お試しください。</div>';
+
+  }
+}
+
+function filterRows(){
+  if(!currentViewer) return;
+  const q=($("rowSearch")?.value||"").trim().toLowerCase();
+  const industry=($("rowIndustry")?.value||"");
+  const industryCol=currentViewer.industry_column||"";
+
+  currentFilteredRows=currentRows.filter(row=>{
+    const text=currentViewer.search_columns.map(c=>row[c]||"").join(" ").toLowerCase();
+    const qOK=!q || text.includes(q);
+    const indOK=!industry || String(row[industryCol]||"")===industry;
+    return qOK && indOK;
+  });
+  applySort();
+  renderTable();
+}
+
+function applySort(){
+  if(!currentSort.column) return;
+  const c=currentSort.column, dir=currentSort.asc?1:-1;
+  currentFilteredRows.sort((a,b)=>
+    String(a[c]||"").localeCompare(String(b[c]||""),"ja",{numeric:true})*dir
+  );
+}
+
+function sortRows(column){
+  if(currentSort.column===column) currentSort.asc=!currentSort.asc;
+  else currentSort={column,asc:true};
+  applySort(); renderTable();
+}
+
+function renderTable(){
+  const cols=(currentViewer.display_columns && currentViewer.display_columns.length)
+    ? currentViewer.display_columns
+    : currentViewer.search_columns;
+
+  const total=currentFilteredRows.length;
+  const shown=Math.min(total,MAX_RENDER_ROWS);
+  $("rowCount").textContent = total+"件" + (total>MAX_RENDER_ROWS ? "（先頭"+MAX_RENDER_ROWS+"件を表示。検索すると絞り込めます）" : "");
+
+  if(!total){
+    $("tableArea").innerHTML="<p>該当する施設がありません。</p>"; return;
+  }
+
+  let html='<div class="table-wrap"><table><thead><tr>';
+  cols.forEach(c=>{
+    const mark=currentSort.column===c?(currentSort.asc?" ▲":" ▼"):"";
+    html+=`<th data-col="${escapeAttribute(c)}">${escapeHTML(c+mark)}</th>`;
+  });
+  html+='</tr></thead><tbody>';
+  currentFilteredRows.slice(0,shown).forEach(row=>{
+    html+="<tr>";
+    cols.forEach(c=>html+=`<td>${officialPDFCell(c,row[c])}</td>`);
+    html+="</tr>";
+  });
+  html+="</tbody></table></div>";
+  $("tableArea").innerHTML=html;
+  $("tableArea").querySelectorAll("th[data-col]").forEach(th=>{
+    th.addEventListener("click",()=>sortRows(th.dataset.col));
+  });
+}
+
+async function showDetail(item){
+  $("listPage").classList.add("hidden");
+  $("detailPage").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"instant"});
+
+  const sourceURL=safeOfficialURL(item.source_url);
+  const fileURL=safeOfficialURL(item.file_url);
+  const viewer=getViewer(item);
+
+  let buttons="";
+  if(sourceURL){
+    buttons+=`<a class="link" href="${escapeAttribute(sourceURL)}" target="_blank" rel="noopener noreferrer">公式公開ページ</a>`;
+  }
+  if(fileURL && fileURL!==sourceURL && !String(fileURL).startsWith("./")){
+    buttons+=`<a class="link" href="${escapeAttribute(fileURL)}" target="_blank" rel="noopener noreferrer">元データ・資料</a>`;
+  }
+
+  let viewerHTML="";
+  if(viewer && viewer.type==="link_collection"){
+    const items=Array.isArray(viewer.items)?viewer.items:[];
+    viewerHTML += viewer.notice ? `<div class="notice">${escapeHTML(viewer.notice)}</div>` : "";
+    items.forEach(x=>{
+      x={...x,url:safeOfficialURL(x.url)};
+      viewerHTML+=`<div class="item"><h3>${escapeHTML(x.label||"資料")}</h3><p class="small">${escapeHTML(x.summary||"")}</p>${x.url?`<a class="link" href="${escapeAttribute(x.url)}" target="_blank" rel="noopener noreferrer">公式資料を開く</a>`:""}</div>`;
+    });
+  }else if(viewer && viewer.type==="csv_table"){
+    viewerHTML='<div id="csvArea"><p class="small">一覧データを読み込んでいます…</p></div>';
+  }
+
+  $("detail").innerHTML=`
+    <h2>${escapeHTML(item.title||"名称未設定")}</h2>
+    <p>
+      <span class="badge">${escapeHTML(item.category||"未分類")}</span>
+      <span class="badge">${escapeHTML(item.prefecture||"")}</span>
+      <span class="badge">${escapeHTML(item.city||"")}</span>
+    </p>
+    <p class="small">公開元：${escapeHTML(item.publisher||"―")}</p>
+    <p class="small">データ基準日：${escapeHTML(item.data_as_of||"―")}</p>
+    <p class="small">${escapeHTML(item.description||"")}</p>
+    ${buttons}
+    ${viewerHTML}
+    <hr>
+    <p class="small">OPEN RADAR内の表示は検索・確認をしやすくするための整理表示です。最新・正式な内容は公開元の公式情報で確認してください。</p>`;
+
+  if(viewer && viewer.type==="csv_table"){
+    await loadCSVViewer(item,viewer);
+  }
+}
+
+function showList(){
+  $("detailPage").classList.add("hidden");
+  $("listPage").classList.remove("hidden");
+  currentRows=[]; currentFilteredRows=[]; currentViewer=null;
+  window.scrollTo({top:0,behavior:"instant"});
+}
+
+$("keyword").addEventListener("input",searchData);
+$("category").addEventListener("change",searchData);
+$("prefecture").addEventListener("change",searchData);
+$("backButton").addEventListener("click",showList);
+
+loadData();
+</script>
+</body>
+</html>
