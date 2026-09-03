@@ -30,12 +30,24 @@ th:last-child,td:last-child{border-right:0}
 tr:hover td{background:#fafafa}
 .notice{padding:10px 12px;background:#f3f3f3;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.6}
 .error{padding:12px;background:#fff2f2;border:1px solid #e3bcbc;border-radius:8px;color:#8a2222}
+.retail-cards{display:none}
 @media(max-width:700px){
   header h1{font-size:25px}
   .card{padding:14px}
   button,.link{width:100%;margin:5px 0}
   .viewer-tools{grid-template-columns:1fr}
   th,td{font-size:12px;padding:8px}
+  .retail-table{display:none}
+  .retail-cards{display:grid;gap:12px;min-width:0}
+  .retail-card{min-width:0;border:1px solid #ddd;border-radius:10px;padding:12px;overflow-wrap:anywhere}
+  .retail-card h3{font-size:18px;margin:0 0 12px}
+  .retail-card dl{margin:0}
+  .retail-card dt{font-size:12px;color:#666;margin-top:10px}
+  .retail-card dd{margin:3px 0 10px;font-size:14px;line-height:1.6;white-space:pre-wrap}
+  .retail-card summary{min-height:44px;padding:12px 0;cursor:pointer;font-weight:600}
+  .retail-card details[open] .detail-open,.retail-card details:not([open]) .detail-close{display:none}
+  .retail-pdf{margin-top:12px}
+  .retail-pdf a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:12px;background:#222;color:#fff;border-radius:8px;text-decoration:none;font-size:14px}
 }
 </style>
 </head>
@@ -313,6 +325,7 @@ async function loadCSVViewer(item, viewer){
     if(headerRow!==0 || dataStart!==1 || headers.length!==allowed.length
       || headers.some((h,i)=>h!==allowed[i])) throw new Error("公開CSVの列が一致しません。");
     viewer={...viewer,
+      retail_cards:path==="./shiga_large_retail_notices_20260903.csv",
       search_columns:allowed,
       display_columns:(viewer.display_columns||allowed).filter(c=>allowed.includes(c)),
       industry_column:allowed.includes(viewer.industry_column)?viewer.industry_column:""};
@@ -330,7 +343,7 @@ async function loadCSVViewer(item, viewer){
     $("csvArea").innerHTML=`
       <p class="small">個人の申請者・営業者・管理者の氏名と電話番号は掲載していません。</p>
       <div class="viewer-tools">
-        <input id="rowSearch" type="search" placeholder="${escapeAttribute(viewer.search_placeholder||"施設名・住所などで検索")}">
+        <input id="rowSearch" type="search" aria-label="${escapeAttribute(viewer.retail_cards?"店舗名・住所などで検索":viewer.search_placeholder||"施設名・住所などで検索")}" placeholder="${escapeAttribute(viewer.retail_cards?"店舗名・住所など":viewer.search_placeholder||"施設名・住所などで検索")}">
         <select id="rowIndustry"><option value="">すべてのカテゴリ</option></select>
       </div>
       <div id="rowCount" class="viewer-count"></div>
@@ -397,7 +410,7 @@ function renderTable(){
     $("tableArea").innerHTML="<p>該当する施設がありません。</p>"; return;
   }
 
-  let html='<div class="table-wrap"><table><thead><tr>';
+  let html=`<div class="table-wrap${currentViewer.retail_cards?' retail-table':''}"><table><thead><tr>`;
   cols.forEach(c=>{
     const mark=currentSort.column===c?(currentSort.asc?" ▲":" ▼"):"";
     html+=`<th data-col="${escapeAttribute(c)}">${escapeHTML(c+mark)}</th>`;
@@ -409,6 +422,19 @@ function renderTable(){
     html+="</tr>";
   });
   html+="</tbody></table></div>";
+  if(currentViewer.retail_cards){
+    const primary=["店舗名","市町","届出区分","届出日"];
+    const fields=(row,keys)=>keys.map(c=>`<dt>${escapeHTML(c)}</dt><dd>${escapeHTML(row[c]||"—")}</dd>`).join("");
+    html+='<div class="retail-cards">';
+    currentFilteredRows.slice(0,shown).forEach(row=>{
+      html+=`<article class="retail-card"><h3>${escapeHTML(row["店舗名"])}</h3>
+        <dl>${fields(row,primary.slice(1))}</dl>
+        <div class="retail-pdf">${officialPDFCell("公告PDFのURL",row["公告PDFのURL"])}</div>
+        <details><summary><span class="detail-open">詳細を開く</span><span class="detail-close">詳細を閉じる</span></summary>
+        <dl>${fields(row,cols.filter(c=>!primary.includes(c)&&c!=="公告PDFのURL"))}</dl></details></article>`;
+    });
+    html+='</div>';
+  }
   $("tableArea").innerHTML=html;
   $("tableArea").querySelectorAll("th[data-col]").forEach(th=>{
     th.addEventListener("click",()=>sortRows(th.dataset.col));
