@@ -11,7 +11,7 @@
       "publisher": "大津市",
       "format": "CSV",
       "data_as_of": "2026年7月末時点",
-      "description": "施設名、所在地、業種、許可期間などを確認できます。",
+      "description": "施設名、業種、許可期間などを確認できます。",
       "source_url": "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
       "file_url": "./od_2607.csv",
       "viewer": {
@@ -21,13 +21,14 @@
         "data_start_row": 1,
         "display_columns": [
           "施設名",
-          "施設所在地",
+          "地域",
           "業種",
+          "許可開始年月日",
           "法人・団体名",
           "許可番号",
-          "許可開始年月日",
           "許可満了年月日",
-          "条件"
+          "条件",
+          "許可申請年月日"
         ],
         "search_placeholder": "施設名・所在地・法人・団体名で検索",
         "industry_column": "業種",
@@ -37,13 +38,30 @@
           "許可番号",
           "法人・団体名",
           "施設名",
-          "施設所在地",
           "業種",
           "許可申請年月日",
           "許可開始年月日",
           "許可満了年月日",
           "条件"
-        ]
+        ],
+        "allowed_columns": [
+          "許可番号",
+          "法人・団体名",
+          "施設名",
+          "業種",
+          "許可申請年月日",
+          "許可開始年月日",
+          "許可満了年月日",
+          "条件"
+        ],
+        "region_column": "",
+        "primary_columns": [
+          "施設名",
+          "地域",
+          "業種",
+          "許可開始年月日"
+        ],
+        "url_column": ""
       },
       "search_terms": [
         "食品",
@@ -51,273 +69,10 @@
         "許可",
         "施設",
         "店舗"
-      ]
-    },
-    {
-      "id": "otsu-fill-permit-r8",
-      "title": "盛土規制法 工事許可（令和8年度）",
-      "category": "建築・開発",
-      "prefecture": "滋賀県",
-      "city": "大津市",
-      "publisher": "大津市 都市計画部 開発調整課",
-      "format": "PDF",
-      "data_as_of": "2026年8月5日現在",
-      "description": "宅地造成・特定盛土等に関する工事許可の公表です。",
-      "source_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html",
-      "file_url": "https://www.city.otsu.lg.jp/material/files/group/24/20260805R8.pdf",
-      "viewer": {
-        "type": "link_collection",
-        "notice": "正式な内容は元資料で確認してください。",
-        "items": [
-          {
-            "label": "整理番号 A-15",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-16",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-17",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-18",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-19",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-20",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-21",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-22",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-23",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          },
-          {
-            "label": "整理番号 A-24",
-            "summary": "大津市 盛土規制法・工事許可",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/k/74886.html"
-          }
-        ]
-      },
-      "search_terms": [
-        "盛土",
-        "工事許可",
-        "宅地造成",
-        "特定盛土",
-        "開発",
-        "建築"
-      ]
-    },
-    {
-      "id": "otsu-fill-notification-r7",
-      "title": "盛土規制法 工事届出（令和7年度）",
-      "category": "建築・開発",
-      "prefecture": "滋賀県",
-      "city": "大津市",
-      "publisher": "大津市 都市計画部 開発調整課",
-      "format": "PDF / 公式公表",
-      "data_as_of": "大津市ページ更新 2026年5月14日",
-      "description": "大津市が公表する盛土規制法の工事届出。E-1～E-28、F-1～F-4の計32件。",
-      "source_url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html",
-      "file_url": "https://www.city.otsu.lg.jp/material/files/group/24/20250806-2.pdf",
-      "viewer": {
-        "type": "link_collection",
-        "notice": "32件を整理表示しています。正式な工事内容・当事者・所在地・日程・規模等は大津市の原本で確認してください。",
-        "items": [
-          {
-            "label": "E-1",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-2",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-3",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-4",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-5",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-6",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-7",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-8",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-9",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-10",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-11",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-12",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-13",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-14",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-15",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-16",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-17",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-18",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-19",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-20",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-21",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-22",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-23",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-24",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-25",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-26",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-27",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "E-28",
-            "summary": "宅地造成又は特定盛土等に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "F-1",
-            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "F-2",
-            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "F-3",
-            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          },
-          {
-            "label": "F-4",
-            "summary": "土石の堆積に関する工事の届出。正式内容は大津市の公式公表資料で確認。",
-            "url": "https://www.city.otsu.lg.jp/soshiki/035/1308/g/takuchi/zousei/m/t/74890.html"
-          }
-        ]
-      },
-      "search_terms": [
-        "盛土",
-        "工事届出",
-        "宅地造成",
-        "特定盛土",
-        "土石の堆積",
-        "開発",
-        "着工",
-        "工事"
-      ]
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "食品営業許可施設一覧",
+      "notice": "公式資料の基準日時点の情報です。許可・届出の日付は開業・工事完了の確認日ではありません。最新の状況は公開元で確認してください。 住所情報は原本照合の確認保留により掲載していません。"
     },
     {
       "id": "shiga-large-retail-r8",
@@ -338,10 +93,11 @@
         "data_start_row": 1,
         "display_columns": [
           "店舗名",
-          "市町",
-          "所在地",
+          "地域",
           "届出区分",
           "届出日",
+          "市町",
+          "所在地",
           "新設日・変更日",
           "店舗面積（㎡）",
           "届出者（公告の設置者）",
@@ -358,7 +114,8 @@
           "変更前営業時間",
           "変更前駐車場利用時間",
           "注記",
-          "公告PDFのURL"
+          "公告PDFのURL",
+          "案件ID"
         ],
         "search_placeholder": "店舗名・所在地・届出者・小売業者・日付で検索",
         "industry_column": "届出区分",
@@ -388,7 +145,40 @@
           "変更前駐車場利用時間",
           "注記",
           "公告PDFのURL"
-        ]
+        ],
+        "allowed_columns": [
+          "案件ID",
+          "店舗名",
+          "市町",
+          "所在地",
+          "届出区分",
+          "届出日",
+          "新設日・変更日",
+          "店舗面積（㎡）",
+          "届出者（公告の設置者）",
+          "主要小売業者",
+          "駐車場（台）",
+          "駐輪場（台）",
+          "営業時間",
+          "駐車場利用時間",
+          "公告日",
+          "意見提出期限",
+          "変更前店舗面積（㎡）",
+          "変更前駐車場（台）",
+          "変更前駐輪場（台）",
+          "変更前営業時間",
+          "変更前駐車場利用時間",
+          "注記",
+          "公告PDFのURL"
+        ],
+        "region_column": "市町",
+        "primary_columns": [
+          "店舗名",
+          "地域",
+          "届出区分",
+          "届出日"
+        ],
+        "url_column": "公告PDFのURL"
       },
       "search_terms": [
         "大規模小売店舗",
@@ -431,7 +221,10 @@
         "栗東市",
         "栗東市霊仙寺111ほか2筆",
         "株式会社アルペン"
-      ]
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "大規模小売店舗 新設・変更届出",
+      "notice": "公式資料の基準日時点の情報です。許可・届出の日付は開業・工事完了の確認日ではありません。最新の状況は公開元で確認してください。"
     },
     {
       "id": "shiga-large-retail-preconsultation",
@@ -444,46 +237,72 @@
       "data_as_of": "滋賀県公式ページ 2026年4月1日更新",
       "description": "大規模小売店舗立地法の正式届出より早い段階で行われる事前協議。公式ページ掲載7案件を整理。",
       "source_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
-      "file_url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
       "viewer": {
         "type": "link_collection",
         "notice": "現在、意見受付期間中の案件は0件。過去7案件を参考表示。新設は店舗面積10,000㎡以上、変更は10,000㎡以上の増床が対象。正式内容・図面等は滋賀県公式原本で確認してください。",
-        "items": [
+        "records": [
           {
-            "label": "（仮称）滋賀県大津市今堅田新築計画",
-            "summary": "大津市｜事前届出受付 2024-07-22｜事前説明会 2024-07-31｜意見受付期限 2024-08-21｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "（仮称）滋賀県大津市今堅田新築計画",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "大津市｜事前届出受付 2024-07-22｜事前説明会 2024-07-31｜意見受付期限 2024-08-21｜市町等意見あり／県意見あり"
           },
           {
-            "label": "（仮称）コストコ滋賀倉庫店",
-            "summary": "東近江市中小路町｜事前届出受付 2023-03-20｜事前説明会 2023-04-08｜意見受付期限 2023-05-01｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "（仮称）コストコ滋賀倉庫店",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "東近江市中小路町｜事前届出受付 2023-03-20｜事前説明会 2023-04-08｜意見受付期限 2023-05-01｜市町等意見あり／県意見あり"
           },
           {
-            "label": "（仮称）大津びわこ競輪場跡地商業施設",
-            "summary": "大津市二本松｜事前届出受付 2018-07-12｜事前説明会 2018-07-31｜意見受付期限 2018-08-21｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "（仮称）大津びわこ競輪場跡地商業施設",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "大津市二本松｜事前届出受付 2018-07-12｜事前説明会 2018-07-31｜意見受付期限 2018-08-21｜市町等意見あり／県意見あり"
           },
           {
-            "label": "（仮称）コメリパワー栗東店",
-            "summary": "栗東市上鈎・下鈎｜事前届出受付 2017-11-24｜事前説明会 2017-12-14｜意見受付期限 2018-01-04｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "（仮称）コメリパワー栗東店",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "栗東市上鈎・下鈎｜事前届出受付 2017-11-24｜事前説明会 2017-12-14｜意見受付期限 2018-01-04｜市町等意見あり／県意見あり"
           },
           {
-            "label": "イオンタウン湖南店",
-            "summary": "湖南市岩根｜事前届出受付 2013-12-27｜事前説明会 2014-01-17｜意見受付期限 2014-02-07｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "イオンタウン湖南店",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "湖南市岩根｜事前届出受付 2013-12-27｜事前説明会 2014-01-17｜意見受付期限 2014-02-07｜市町等意見あり／県意見あり"
           },
           {
-            "label": "コメリパワー水口店開発事業",
-            "summary": "甲賀市水口町｜事前届出受付 2013-01-21｜事前説明会 2013-02-05｜意見受付期限 2013-02-26｜市町等意見あり／県意見なし",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "コメリパワー水口店開発事業",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "甲賀市水口町｜事前届出受付 2013-01-21｜事前説明会 2013-02-05｜意見受付期限 2013-02-26｜市町等意見あり／県意見なし"
           },
           {
-            "label": "イオンタウン彦根",
-            "summary": "彦根市里根町｜事前届出受付 2012-10-16｜事前説明会 2012-11-08｜意見受付期限 2012-11-29｜市町等意見あり／県意見あり",
-            "url": "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html"
+            "資料名": "イオンタウン彦根",
+            "地域": "県内各市町",
+            "細分類": "大規模小売店舗 事前届出",
+            "説明": "彦根市里根町｜事前届出受付 2012-10-16｜事前説明会 2012-11-08｜意見受付期限 2012-11-29｜市町等意見あり／県意見あり"
           }
+        ],
+        "region_column": "地域",
+        "industry_column": "細分類",
+        "url_column": "",
+        "primary_columns": [
+          "資料名",
+          "地域",
+          "細分類"
+        ],
+        "display_columns": [
+          "資料名",
+          "地域",
+          "細分類",
+          "説明"
+        ],
+        "search_columns": [
+          "資料名",
+          "地域",
+          "細分類",
+          "説明"
         ]
       },
       "search_terms": [
@@ -495,78 +314,10 @@
         "着工前",
         "大型店",
         "店舗"
-      ]
-    },
-    {
-      "id": "shiga-care-new",
-      "title": "滋賀県 新規介護サービス事業所",
-      "category": "介護・福祉",
-      "prefecture": "滋賀県",
-      "city": "県内各市町",
-      "publisher": "滋賀県 健康医療福祉部",
-      "format": "Excel / PDF / 公式公表",
-      "data_as_of": "介護サービス事業所一覧 2026年8月1日現在",
-      "description": "滋賀県内の介護サービス事業所マスターと新規指定事業所の公式公表を基に、新規開設候補を把握するためのデータセット。",
-      "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html",
-      "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/15710.html",
-      "viewer": {
-        "type": "link_collection",
-        "notice": "現在は公式マスターと新規事業所公表ページへの導線を掲載。今後は月次Excelの差分から新規事業所を自動抽出してNEW表示する設計です。大津市所管・市町所管サービスは指定元を区別して扱います。",
-        "items": [
-          {
-            "label": "滋賀県内の介護サービス事業所一覧（2026年8月1日現在）",
-            "summary": "県公式Excel。月次差分による新規事業所検出の基準マスターとして使用。",
-            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/304610.html"
-          },
-          {
-            "label": "令和7年度 公表対象新規事業所",
-            "summary": "2025年4月～2026年3月の新規指定事業所が公表対象。公式ページでは2025年4月～11月分の新規事業所一覧PDFを掲載。",
-            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/koureisya/15710.html"
-          }
-        ]
-      },
-      "search_terms": [
-        "介護",
-        "新規事業所",
-        "新規指定",
-        "訪問介護",
-        "訪問看護",
-        "通所介護",
-        "デイサービス",
-        "福祉"
-      ]
-    },
-    {
-      "id": "shiga-disability-welfare",
-      "title": "滋賀県 障害福祉サービス事業所等一覧",
-      "category": "介護・福祉",
-      "prefecture": "滋賀県",
-      "city": "県内各市町（県所管分）",
-      "publisher": "滋賀県 健康医療福祉部 障害福祉課",
-      "format": "Excel / 公式公表",
-      "data_as_of": "令和8年度公表情報",
-      "description": "障害福祉サービス事業所等の公式公表を確認する基礎データ。",
-      "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/",
-      "file_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/",
-      "viewer": {
-        "type": "link_collection",
-        "notice": "指定権限・所管が県と市町で異なる場合があります。正式な指定状況は公式公開元で確認してください。",
-        "items": [
-          {
-            "label": "滋賀県 障害福祉サービス事業所等一覧 公式資料",
-            "summary": "滋賀県公式公開元で最新内容を確認できます。",
-            "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/syougaifukushi/"
-          }
-        ]
-      },
-      "search_terms": [
-        "障害福祉",
-        "グループホーム",
-        "共同生活援助",
-        "就労支援",
-        "生活介護",
-        "障害児"
-      ]
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "大規模小売店舗 事前届出",
+      "notice": "法人による商業店舗の事前届出を資料単位で掲載しています。過去の新設・増床計画を含み、現在の開業状況を示すものではありません。最新の状況は公式出典で確認してください。"
     },
     {
       "id": "shiga-life-hygiene",
@@ -586,14 +337,19 @@
         "header_row": 0,
         "data_start_row": 1,
         "display_columns": [
-          "カテゴリ",
           "施設名",
+          "地域",
+          "カテゴリ",
+          "確認・許可年月日",
           "住所",
           "法人・団体名",
-          "確認・許可年月日",
           "種別",
           "登録期限",
-          "保健所"
+          "保健所",
+          "郵便番号",
+          "所在地",
+          "番地",
+          "旧種別"
         ],
         "search_placeholder": "施設名・所在地・法人・団体名で検索",
         "industry_column": "カテゴリ",
@@ -612,7 +368,29 @@
           "旧種別",
           "登録期限",
           "保健所"
-        ]
+        ],
+        "allowed_columns": [
+          "カテゴリ",
+          "施設名",
+          "郵便番号",
+          "所在地",
+          "住所",
+          "番地",
+          "法人・団体名",
+          "確認・許可年月日",
+          "種別",
+          "旧種別",
+          "登録期限",
+          "保健所"
+        ],
+        "region_column": "住所",
+        "primary_columns": [
+          "施設名",
+          "地域",
+          "カテゴリ",
+          "確認・許可年月日"
+        ],
+        "url_column": ""
       },
       "search_terms": [
         "理容",
@@ -625,7 +403,10 @@
         "温泉",
         "プール",
         "ビルメンテナンス"
-      ]
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "生活衛生営業施設一覧（大津市除く）",
+      "notice": "公式資料の基準日時点の情報です。許可・届出の日付は開業・工事完了の確認日ではありません。最新の状況は公開元で確認してください。 住所は施設・営業所の所在地です。原本確認が未完了の興行場と、住宅との重なりを確認した施設の住所詳細は掲載していません。"
     },
     {
       "id": "shiga-medical-institutions",
@@ -635,7 +416,7 @@
       "city": "滋賀県",
       "publisher": "滋賀県 健康医療福祉部 医療政策課",
       "format": "Excel / オープンデータ",
-      "data_as_of": "病院・一般診療所・歯科診療所 2026年7月1日現在",
+      "data_as_of": "病院・一般診療所・歯科診療所：2026-07-01／歯科技工所：2026-01-01／薬局・店舗販売業：2026-04-30",
       "description": "病院・一般診療所・歯科診療所・歯科技工所・薬局・店舗販売業を統合した一覧（2,317件）。",
       "source_url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
       "file_url": "./shiga_medical_pharmacy_complete_20260831.csv",
@@ -645,13 +426,16 @@
         "header_row": 0,
         "data_start_row": 1,
         "display_columns": [
-          "カテゴリ",
           "施設名",
+          "地域",
+          "カテゴリ",
+          "開設年月日",
           "所在地",
           "法人・団体名",
-          "開設年月日",
           "有効開始日",
-          "有効終了日"
+          "有効終了日",
+          "管理番号",
+          "郵便番号"
         ],
         "industry_column": "カテゴリ",
         "start_date_column": "開設年月日",
@@ -667,7 +451,26 @@
           "有効開始日",
           "有効終了日"
         ],
-        "search_placeholder": "施設名・所在地・法人・団体名で検索"
+        "search_placeholder": "施設名・所在地・法人・団体名で検索",
+        "allowed_columns": [
+          "カテゴリ",
+          "管理番号",
+          "施設名",
+          "郵便番号",
+          "所在地",
+          "法人・団体名",
+          "開設年月日",
+          "有効開始日",
+          "有効終了日"
+        ],
+        "region_column": "所在地",
+        "primary_columns": [
+          "施設名",
+          "地域",
+          "カテゴリ",
+          "開設年月日"
+        ],
+        "url_column": ""
       },
       "search_terms": [
         "病院",
@@ -676,6 +479,15 @@
         "歯科",
         "医療機関",
         "新規開設"
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "医療・薬局関連施設一覧",
+      "notice": "公式資料の基準日時点の情報です。許可・届出の日付は開業・工事完了の確認日ではありません。最新の状況は公開元で確認してください。",
+      "additional_sources": [
+        {
+          "label": "薬局・店舗販売業の出典",
+          "url": "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/yakuzi/300788.html"
+        }
       ]
     },
     {
@@ -697,13 +509,21 @@
         "data_start_row": 1,
         "display_columns": [
           "施設名",
-          "施設住所",
+          "地域",
           "業種",
+          "当初許可日",
+          "施設住所",
           "法人・団体名",
           "施設番号",
-          "当初許可日",
           "満了日",
-          "条件1"
+          "条件1",
+          "施設郵便",
+          "許可日",
+          "種目主",
+          "種目従",
+          "条件2",
+          "条件3",
+          "条件4"
         ],
         "search_placeholder": "施設名・所在地・法人・団体名で検索",
         "industry_column": "業種",
@@ -725,7 +545,32 @@
           "条件2",
           "条件3",
           "条件4"
-        ]
+        ],
+        "allowed_columns": [
+          "施設名",
+          "施設郵便",
+          "施設住所",
+          "法人・団体名",
+          "施設番号",
+          "許可日",
+          "当初許可日",
+          "業種",
+          "種目主",
+          "種目従",
+          "満了日",
+          "条件1",
+          "条件2",
+          "条件3",
+          "条件4"
+        ],
+        "region_column": "施設住所",
+        "primary_columns": [
+          "施設名",
+          "地域",
+          "業種",
+          "当初許可日"
+        ],
+        "url_column": ""
       },
       "search_terms": [
         "食品",
@@ -734,7 +579,28 @@
         "店舗",
         "新規許可",
         "飲食"
-      ]
+      ],
+      "last_checked": "2026-09-04",
+      "subcategory": "食品営業許可施設一覧",
+      "notice": "公式資料の基準日時点の情報です。許可・届出の日付は開業・工事完了の確認日ではありません。最新の状況は公開元で確認してください。"
     }
+  ],
+  "verified_official_urls": [
+    "https://www.city.otsu.lg.jp/soshiki/021/1441/od/02594.html",
+    "https://www.pref.shiga.lg.jp/file/attachment/5584377.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5590963.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5590973.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5590979.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5602015.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5602024.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5616138.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5616142.pdf",
+    "https://www.pref.shiga.lg.jp/file/attachment/5616143.pdf",
+    "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/iryo/15223.html",
+    "https://www.pref.shiga.lg.jp/ippan/kenkouiryouhukushi/yakuzi/300788.html",
+    "https://www.pref.shiga.lg.jp/ippan/kurashi/eiseiaigo/331860.html",
+    "https://www.pref.shiga.lg.jp/ippan/kurashi/syokunoanzen/300273.html",
+    "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/16917.html",
+    "https://www.pref.shiga.lg.jp/ippan/shigotosangyou/kigyou/344070.html"
   ]
 }
